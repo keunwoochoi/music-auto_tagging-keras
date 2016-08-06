@@ -112,7 +112,7 @@ dropout_5 (Dropout)              (None, 256, 1, 1)     0           maxpooling2d_
 Total params: 850368
 ____________________________________________________________________________________________________
 ```
-More info: [on this paper](https://arxiv.org/abs/1606.00298)
+More info: [on this paper](https://arxiv.org/abs/1606.00298), or [blog post](https://keunwoochoi.wordpress.com/2016/06/02/paper-is-out-automatic-tagging-using-deep-convolutional-neural-networks/)
 
 
 ### Credits
