@@ -1,10 +1,24 @@
 # music-auto_tagging-keras
 
-### The prerequisite
-* You need `keras` and `librosa` to execute `example.py`.
-* Yoy need `keras` to execute `example_without_librosa.py`.
+## The prerequisite
+* You need [`keras`](http://keras.io) and [`librosa`](http://librosa.github.io/librosa/) to execute `example.py`.
+* You need `keras` to execute `example_without_librosa.py`.
+* The input data shape is `(None, channel, height, width)`, i.e. following theano convention. If you're using tensorflow as your backend, you should check out `~/.keras/keras.json` if `image_dim_ordering` is set to `th`, i.e.
+```json
+"image_dim_ordering": "th",
+```
 
-### Usage
+## Files
+* [example.py](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/example.py): example
+* [example_without_librosa.py](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/example_without_librosa.py): example that doesn't require librosa because it uses pre-computed mel-spectrograms. If you want to test your own music files, you will anyway need to install [`librosa`](http://librosa.github.io/librosa/).
+* [convnet.py](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/convnet.py): build and compile a convnet model
+* [audio_processor.py](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/audio_processor.py): compute mel-spectrogram using librosa
+* Under [data/](https://github.com/keunwoochoi/music-auto_tagging-keras/tree/master/data),
+  - four .mp3 files: test files
+  - four .npy files: pre-computed melgram for those who don't want to install librosa
+  - [weights_best.hdf5](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/data/weights_best.hdf5): pre-trained weights so that you don't need to train by yourself.
+
+## Usage
 Check out the examples - they are straightforward and commented.
 
 ### The model
