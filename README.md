@@ -1,6 +1,6 @@
 # music-auto_tagging-keras
 
-## The prerequisite
+### The prerequisite
 * You need [`keras`](http://keras.io) to run `example.py`.
   * To use your own audio file, you need [`librosa`](http://librosa.github.io/librosa/).
 * The input data shape is `(None, channel, height, width)`, i.e. following theano convention. If you're using tensorflow as your backend, you should check out `~/.keras/keras.json` if `image_dim_ordering` is set to `th`, i.e.
@@ -8,10 +8,53 @@
 "image_dim_ordering": "th",
 ```
 
-### What happens? & Usage
+### Structures
+#### ConvNet
+
+![alt text](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/imgs/convnet_tagger.png "ConvNet")
+
+num_parameter: 865,950
+AUC score of 0.8454
+
+#### RecurrentNet
+
+![alt text](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/imgs/recurrentnet_tagger.png "RecurrentNet")
+
+num_parameter: 396,786
+AUC score: 0.8xx ..(it is currently learning).
+
+(FYI: with 3M parameter, a deeper ConvNet showed 0.8595 AUC.)
+
+### How was it trained?
+ * Using 29.1s music files in [Million Song Dataset](http://labrosa.ee.columbia.edu/millionsong/)
+ * Check out more details on [this paper](https://arxiv.org/abs/1606.00298)
+ * The tags are...
+
+```python
+['rock', 'pop', 'alternative', 'indie', 'electronic', 'female vocalists', 
+'dance', '00s', 'alternative rock', 'jazz', 'beautiful', 'metal', 
+'chillout', 'male vocalists', 'classic rock', 'soul', 'indie rock',
+'Mellow', 'electronica', '80s', 'folk', '90s', 'chill', 'instrumental',
+'punk', 'oldies', 'blues', 'hard rock', 'ambient', 'acoustic', 'experimental',
+'female vocalist', 'guitar', 'Hip-Hop', '70s', 'party', 'country', 'easy listening',
+'sexy', 'catchy', 'funk', 'electro' ,'heavy metal', 'Progressive rock',
+'60s', 'rnb', 'indie pop', 'sad', 'House', 'happy']
+```
+
+### Which is better?
+ * Training: ConvNet is faster than RecurrentNet (wall-clock time)
+ * Prediction: ConvNet > RecurrentNet
+ * Memory Usage: RecurrentNet have smaller number of trainable parameters. Actually you can even decreases the number of feature maps. The RecurrentNet still works quite well in the case - i.e., the current setting is a little bit rich (or redundant). With ConvNet, you will see the performance decrease if you reduce down the parameters. 
+
+Therefore, if you just wanna use the pre-trained weights, use ConvNet. If you wanna train by yourself, it's up to you. I would use RecurrentNet after downsize it to, like, 0.2M parameters (then the training time would be similar to ConvNet) in general.
+
+### Usage
 ```bash
 $ python example.py
 ```
+Please take a look on the codes, it's pretty simple.
+
+### Result
 
 After a summary of the networks, the result will be printed:
 ``` bash
@@ -104,7 +147,7 @@ data/bensound-thejazzpiano.mp3
 [('electronic', '0.012'), ('alternative', '0.011'), ('oldies', '0.011'), ('Progressive rock', '0.010'), ('soul', '0.009')]
 ```
 
-## Files
+### Files
 * [example.py](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/example.py): example
 * [convnet.py](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/convnet.py): build and compile a convnet model
 * [recurrentnet.py](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/recurrentnet.py): build and compile a recurrentnet model
@@ -115,85 +158,11 @@ data/bensound-thejazzpiano.mp3
   - [cnn_weights_best.hdf5](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/data/cnn_weights_best.hdf5): pre-trained weights so that you don't need to train by yourself.
   - [rnn_weights_best.hdf5](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/data/rnn_weights_best.hdf5): similar but it uses conv+rnn. 
 
-### The model
-convnet: AUC score of 0.8454 for 50 music tags, trained on Million-Song Dataset.
-rnn: AUC score: 0.8xx ..(it is currently learning).
-The tags are...
-```python
-['rock', 'pop', 'alternative', 'indie', 'electronic', 'female vocalists', 
-'dance', '00s', 'alternative rock', 'jazz', 'beautiful', 'metal', 
-'chillout', 'male vocalists', 'classic rock', 'soul', 'indie rock',
-'Mellow', 'electronica', '80s', 'folk', '90s', 'chill', 'instrumental',
-'punk', 'oldies', 'blues', 'hard rock', 'ambient', 'acoustic', 'experimental',
-'female vocalist', 'guitar', 'Hip-Hop', '70s', 'party', 'country', 'easy listening',
-'sexy', 'catchy', 'funk', 'electro' ,'heavy metal', 'Progressive rock',
-'60s', 'rnb', 'indie pop', 'sad', 'House', 'happy']
-```
 
-### The convnet
-is like this. A 'Narrow' version of the convnet in my paper, which is quite nice considering a wide and very deep convnet shows AUC of 0.8595.
-```bash
-____________________________________________________________________________________________________
-Layer (type)                     Output Shape          Param #     Connected to
-====================================================================================================
-convolution2d_1 (Convolution2D)  (None, 32, 96, 1366)  320         convolution2d_input_1[0][0]
-____________________________________________________________________________________________________
-batchnormalization_2 (BatchNormal(None, 32, 96, 1366)  64          convolution2d_1[0][0]
-____________________________________________________________________________________________________
-elu_1 (ELU)                      (None, 32, 96, 1366)  0           batchnormalization_2[0][0]
-____________________________________________________________________________________________________
-maxpooling2d_1 (MaxPooling2D)    (None, 32, 48, 341)   0           elu_1[0][0]
-____________________________________________________________________________________________________
-dropout_1 (Dropout)              (None, 32, 48, 341)   0           maxpooling2d_1[0][0]
-____________________________________________________________________________________________________
-convolution2d_2 (Convolution2D)  (None, 128, 48, 341)  36992       dropout_1[0][0]
-____________________________________________________________________________________________________
-batchnormalization_3 (BatchNormal(None, 128, 48, 341)  256         convolution2d_2[0][0]
-____________________________________________________________________________________________________
-elu_2 (ELU)                      (None, 128, 48, 341)  0           batchnormalization_3[0][0]
-____________________________________________________________________________________________________
-maxpooling2d_2 (MaxPooling2D)    (None, 128, 24, 85)   0           elu_2[0][0]
-____________________________________________________________________________________________________
-dropout_2 (Dropout)              (None, 128, 24, 85)   0           maxpooling2d_2[0][0]
-____________________________________________________________________________________________________
-convolution2d_3 (Convolution2D)  (None, 128, 24, 85)   147584      dropout_2[0][0]
-____________________________________________________________________________________________________
-batchnormalization_4 (BatchNormal(None, 128, 24, 85)   256         convolution2d_3[0][0]
-____________________________________________________________________________________________________
-elu_3 (ELU)                      (None, 128, 24, 85)   0           batchnormalization_4[0][0]
-____________________________________________________________________________________________________
-maxpooling2d_3 (MaxPooling2D)    (None, 128, 12, 21)   0           elu_3[0][0]
-____________________________________________________________________________________________________
-dropout_3 (Dropout)              (None, 128, 12, 21)   0           maxpooling2d_3[0][0]
-____________________________________________________________________________________________________
-convolution2d_4 (Convolution2D)  (None, 192, 12, 21)   221376      dropout_3[0][0]
-____________________________________________________________________________________________________
-batchnormalization_5 (BatchNormal(None, 192, 12, 21)   384         convolution2d_4[0][0]
-____________________________________________________________________________________________________
-elu_4 (ELU)                      (None, 192, 12, 21)   0           batchnormalization_5[0][0]
-____________________________________________________________________________________________________
-maxpooling2d_4 (MaxPooling2D)    (None, 192, 4, 4)     0           elu_4[0][0]
-____________________________________________________________________________________________________
-dropout_4 (Dropout)              (None, 192, 4, 4)     0           maxpooling2d_4[0][0]
-____________________________________________________________________________________________________
-convolution2d_5 (Convolution2D)  (None, 256, 4, 4)     442624      dropout_4[0][0]
-____________________________________________________________________________________________________
-batchnormalization_6 (BatchNormal(None, 256, 4, 4)     512         convolution2d_5[0][0]
-____________________________________________________________________________________________________
-elu_5 (ELU)                      (None, 256, 4, 4)     0           batchnormalization_6[0][0]
-____________________________________________________________________________________________________
-maxpooling2d_5 (MaxPooling2D)    (None, 256, 1, 1)     0           elu_5[0][0]
-____________________________________________________________________________________________________
-dropout_5 (Dropout)              (None, 256, 1, 1)     0           maxpooling2d_5[0][0]
-====================================================================================================
-Total params: 850368
-____________________________________________________________________________________________________
-```
+### And...
+
 * More info: [on this paper](https://arxiv.org/abs/1606.00298), or [blog post](https://keunwoochoi.wordpress.com/2016/06/02/paper-is-out-automatic-tagging-using-deep-convolutional-neural-networks/).
 * Also please take a look on the [slide](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/slide-ismir-2016.pdf) at ismir 2016. It includes some results that are not in the paper.
-
-#### The rnn
-will update soon.
 
 ### Credits
 * Please cite [this paper](https://scholar.google.co.kr/citations?view_op=view_citation&hl=en&user=ZrqdSu4AAAAJ&citation_for_view=ZrqdSu4AAAAJ:3fE2CSJIrl8C), *Automatic Tagging using Deep Convolutional Neural Networks*, Keunwoo Choi, George Fazekas, Mark Sandler
