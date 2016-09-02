@@ -8,6 +8,27 @@
 "image_dim_ordering": "th",
 ```
 
+### What happens? & Usage
+```bash
+$ python example.py
+```
+(or `$ python example_without_librosa.py`),
+
+After a summary of convnet, the result will be printed:
+``` bash
+data/bensound-cute.mp3
+[('jazz', 0.32834091782569885), ('folk', 0.17664788663387299), ('instrumental', 0.1569863110780716), ('guitar', 0.10749899595975876), ('acoustic', 0.08458312600851059), ('female vocalists', 0.06621211022138596), ('indie', 0.0627480000257492), ('chillout', 0.05570304021239281), ('rock', 0.04766707867383957), ('pop', 0.04348916560411453)]
+
+data/bensound-actionable.mp3
+[('rock', 0.4575064182281494), ('classic rock', 0.3454620838165283), ('punk', 0.23092204332351685), ('60s', 0.11653172969818115), ('70s', 0.11155932396650314), ('hard rock', 0.10467251390218735), ('indie', 0.1011115238070488), ('80s', 0.09881759434938431), ('alternative', 0.0769491195678711), ('Progressive rock', 0.0754147469997406)]
+
+data/bensound-dubstep.mp3
+[('Hip-Hop', 0.1726689487695694), ('rock', 0.10726829618215561), ('electronic', 0.10054843127727509), ('female vocalists', 0.07955039292573929), ('pop', 0.07343248277902603), ('alternative', 0.05530229210853577), ('indie', 0.04597167670726776), ('rnb', 0.04486352205276489), ('80s', 0.031885139644145966), ('90s', 0.02957077883183956)]
+
+data/bensound-thejazzpiano.mp3
+[('jazz', 0.9577991366386414), ('instrumental', 0.11406592279672623), ('guitar', 0.03199296444654465), ('rock', 0.024645458906888962), ('blues', 0.02134867012500763), ('chillout', 0.013597516342997551), ('easy listening', 0.013440641574561596), ('folk', 0.013292261399328709), ('oldies', 0.011634128168225288), ('country', 0.011065035127103329)]
+```
+
 ## Files
 * [example.py](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/example.py): example
 * [example_without_librosa.py](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/example_without_librosa.py): example that doesn't require librosa because it uses pre-computed mel-spectrograms. If you want to test your own music files, you will anyway need to install [`librosa`](http://librosa.github.io/librosa/).
@@ -17,9 +38,6 @@
   - four .mp3 files: test files
   - four .npy files: pre-computed melgram for those who don't want to install librosa
   - [weights_best.hdf5](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/data/weights_best.hdf5): pre-trained weights so that you don't need to train by yourself.
-
-## Usage
-Check out the examples - they are straightforward and commented.
 
 ### The model
 AUC score of 0.8454 for 50 music tags, trained on Million-Song Dataset.
@@ -35,7 +53,7 @@ The tags are...
 '60s', 'rnb', 'indie pop', 'sad', 'House', 'happy']
 ```
 
-#### The convnet
+### The convnet
 is like this. A 'Narrow' version, which is quite nice considering a wide and very deep convnet shows AUC of 0.8595.
 ```bash
 ____________________________________________________________________________________________________
@@ -94,27 +112,8 @@ dropout_5 (Dropout)              (None, 256, 1, 1)     0           maxpooling2d_
 Total params: 850368
 ____________________________________________________________________________________________________
 ```
-More info: [on this paper](https://arxiv.org/abs/1606.00298)
-
-### What happens?
-```bash
-$ python example.py
-```
-After a summary of convnet, the result will be printed:
-``` bash
-data/bensound-cute.mp3
-[('jazz', 0.32834091782569885), ('folk', 0.17664788663387299), ('instrumental', 0.1569863110780716), ('guitar', 0.10749899595975876), ('acoustic', 0.08458312600851059), ('female vocalists', 0.06621211022138596), ('indie', 0.0627480000257492), ('chillout', 0.05570304021239281), ('rock', 0.04766707867383957), ('pop', 0.04348916560411453)]
-
-data/bensound-actionable.mp3
-[('rock', 0.4575064182281494), ('classic rock', 0.3454620838165283), ('punk', 0.23092204332351685), ('60s', 0.11653172969818115), ('70s', 0.11155932396650314), ('hard rock', 0.10467251390218735), ('indie', 0.1011115238070488), ('80s', 0.09881759434938431), ('alternative', 0.0769491195678711), ('Progressive rock', 0.0754147469997406)]
-
-data/bensound-dubstep.mp3
-[('Hip-Hop', 0.1726689487695694), ('rock', 0.10726829618215561), ('electronic', 0.10054843127727509), ('female vocalists', 0.07955039292573929), ('pop', 0.07343248277902603), ('alternative', 0.05530229210853577), ('indie', 0.04597167670726776), ('rnb', 0.04486352205276489), ('80s', 0.031885139644145966), ('90s', 0.02957077883183956)]
-
-data/bensound-thejazzpiano.mp3
-[('jazz', 0.9577991366386414), ('instrumental', 0.11406592279672623), ('guitar', 0.03199296444654465), ('rock', 0.024645458906888962), ('blues', 0.02134867012500763), ('chillout', 0.013597516342997551), ('easy listening', 0.013440641574561596), ('folk', 0.013292261399328709), ('oldies', 0.011634128168225288), ('country', 0.011065035127103329)]
-```
-
+* More info: [on this paper](https://arxiv.org/abs/1606.00298), or [blog post](https://keunwoochoi.wordpress.com/2016/06/02/paper-is-out-automatic-tagging-using-deep-convolutional-neural-networks/).
+* Also please take a look on the [slide](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/slide-ismir-2016.pdf) at ismir 2016. It includes some results that are not in the paper.
 
 ### Credits
 * Please cite [this paper](https://scholar.google.co.kr/citations?view_op=view_citation&hl=en&user=ZrqdSu4AAAAJ&citation_for_view=ZrqdSu4AAAAJ:3fE2CSJIrl8C), *Automatic Tagging using Deep Convolutional Neural Networks*, Keunwoo Choi, George Fazekas, Mark Sandler
