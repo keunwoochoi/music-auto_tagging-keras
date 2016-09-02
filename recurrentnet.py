@@ -16,9 +16,10 @@ def build_recurrentnet_model():
     num_rnn_layers = 2
     dim_labels = 50
     dropout_rnn_output = 0.3
+    input_shape = (1, 96, 1366)
     # -----start a model and 'pre-process'
     model = Sequential()
-    model.add(ZeroPadding2D(padding=(0, 37), input_shape=(1, 96, 1366)))
+    model.add(ZeroPadding2D(padding=(0, 37), input_shape=input_shape))
     model.add(BatchNormalization(axis=3))  # per frequency.
     # -----add convolutional layers
     model.add(get_convBNeluMPdrop((1, 96, 1440)))  # (None, num_feat, 1, 15)
@@ -30,7 +31,6 @@ def build_recurrentnet_model():
     model.add(Dropout(dropout_rnn_output))
     # -----add output layer
     model.add(Dense(dim_labels, activation='sigmoid'))
-
     optimiser = keras.optimizers.Adam()
     model.compile(loss='binary_crossentropy', optimizer=optimiser)
     return model
@@ -58,5 +58,4 @@ def get_convBNeluMPdrop(input_shape):
         model.add(keras.layers.advanced_activations.ELU(alpha=1.0))
         model.add(MaxPooling2D(pool_size=pool_sizes[conv_idx]))
         model.add(Dropout(0.5))
-
     return model

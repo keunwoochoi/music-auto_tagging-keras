@@ -41,7 +41,6 @@ def build_convnet_model():
     model.add(Flatten())
     # [Output layer]
     model.add(Dense(dim_labels, activation='sigmoid'))
-
     return model
 
 
