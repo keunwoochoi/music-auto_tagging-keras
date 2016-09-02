@@ -20,10 +20,6 @@ def build_convnet_model():
 		    memo = 'conv2d_fcn5_smaller_32-256'
 
 	'''
-	model = design_2d_convnet_model()	
-	return model
-
-def design_2d_convnet_model():
 	num_channels = 1
 	height_input = 96
 	width_input = 1366
@@ -41,12 +37,12 @@ def design_2d_convnet_model():
 			pool_sizes,	dropout_conv, (num_channels, height_input, width_input)]
 	model.add(get_convBNeluMPdrop(*args))
 	
-	model.add(Flatten()) # use model.output_shape (which is e.g. (None, 32)) for the following layer
-		
+	model.add(Flatten()) # use model.output_shape (which is e.g. (None, 32)) for the following layer		
 	#[Output layer]
 	model.add(Dense(dim_labels, activation='sigmoid'))
 
 	return model	
+
 
 def get_convBNeluMPdrop(num_conv_layers, nums_feat_maps, feat_scale_factor, conv_sizes, pool_sizes, dropout_conv, input_shape):
 	#[Convolutional Layers]
