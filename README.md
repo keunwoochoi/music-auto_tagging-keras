@@ -9,21 +9,20 @@
 ```
 
 ### Structures
-#### ConvNet
 
-![alt text](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/imgs/convnet_tagger.png "ConvNet")
+![alt text](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/imgs/diagrams.png "structures")
 
-num_parameter: 865,950
-AUC score of 0.8454
-
-#### RecurrentNet
-
-![alt text](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/imgs/recurrentnet_tagger.png "RecurrentNet")
-
-num_parameter: 396,786
-AUC score: 0.8xx ..(it is currently learning).
+##### ConvNet 
+ * 5-layer 2D Convolutions
+ * num_parameter: 865,950
+ * AUC score of 0.8454
 
 (FYI: with 3M parameter, a deeper ConvNet showed 0.8595 AUC.)
+
+##### RecurrentNet
+ * 4-layer 2D Convolutions + 2 GRU 
+ * num_parameter: 396,786
+ * AUC score: 0.8xx ..(it is currently learning).
 
 ### How was it trained?
  * Using 29.1s music files in [Million Song Dataset](http://labrosa.ee.columbia.edu/millionsong/)
