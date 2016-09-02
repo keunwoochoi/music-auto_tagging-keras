@@ -64,7 +64,7 @@ def main(net):
 
     model.summary()
     print('Loading weights of %s...' % net)
-    model.load_weights('data/%s_weights_best.hdf5' % net)
+    model.load_weights('data/%s_weights_%s.hdf5' % (net, keras.backend._BACKEND))
     # predict the tags like this
     print('Predicting...')
     start = time.time()
@@ -83,6 +83,6 @@ def main(net):
 
 if __name__ == '__main__':
 
-    networks = ['rnn', 'cnn']
+    networks = ['cnn', 'rnn']
     for net in networks:
         main(net)
