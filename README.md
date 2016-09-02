@@ -13,7 +13,7 @@
 $ python example.py
 ```
 
-After a summary of convnet, the result will be printed:
+After a summary of the networks, the result will be printed:
 ``` bash
 $ python example.py
 Using Theano backend.
