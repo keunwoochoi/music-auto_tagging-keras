@@ -1,5 +1,6 @@
 import time
 import numpy as np
+from keras import backend as K
 import convnet
 import recurrentnet
 import audio_processor as ap
@@ -21,7 +22,7 @@ def librosa_exists():
 
 
 def main(net):
-    print('Running main() with network: %s' % net)
+    print('Running main() with network: %s and backend: %s' % (net, K._BACKEND))
     # setting
     audio_paths = ['data/bensound-cute.mp3',
                    'data/bensound-actionable.mp3',
@@ -64,7 +65,7 @@ def main(net):
 
     model.summary()
     print('Loading weights of %s...' % net)
-    model.load_weights('data/%s_weights_%s.hdf5' % (net, keras.backend._BACKEND))
+    model.load_weights('data/%s_weights_%s.hdf5' % (net, K._BACKEND))
     # predict the tags like this
     print('Predicting...')
     start = time.time()
