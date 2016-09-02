@@ -63,7 +63,6 @@ def main(net):
     elif net == 'rnn':
         model = recurrentnet.build_recurrentnet_model()
 
-    model.summary()
     print('Loading weights of %s...' % net)
     model.load_weights('data/%s_weights_%s.hdf5' % (net, K._BACKEND))
     # predict the tags like this
