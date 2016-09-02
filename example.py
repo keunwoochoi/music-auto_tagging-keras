@@ -7,11 +7,22 @@ def sort_result(tags, preds):
 	sorted_result = sorted(result, key=lambda x:x[1], reverse=True)
 	return [(name, '%5.3f'%score) for name, score in sorted_result]
 
+def librosa_exists():
+    try:
+        __import__('librosa')
+    except ImportError:
+        return False
+    else:
+        return True
+
 def main(net):
 	print('Running main() with network: %s' % net)
 	# setting
 	audio_paths = ['data/bensound-cute.mp3', 'data/bensound-actionable.mp3', 'data/bensound-dubstep.mp3'
 	, 'data/bensound-thejazzpiano.mp3']
+	melgram_paths = ['data/bensound-cute.npy', 'data/bensound-actionable.npy', 'data/bensound-dubstep.npy'
+	, 'data/bensound-thejazzpiano.npy']
+
 	tags = ['rock', 'pop', 'alternative', 'indie', 'electronic', 'female vocalists', 
 			'dance', '00s', 'alternative rock', 'jazz', 'beautiful', 'metal', 
 			'chillout', 'male vocalists', 'classic rock', 'soul', 'indie rock',
@@ -23,9 +34,15 @@ def main(net):
 
 	# prepare data like this
 	melgrams = np.zeros((0, 1, 96, 1366))
-	for audio_path in audio_paths:
-		melgram = ap.compute_melgram(audio_path)
-		melgrams = np.concatenate((melgrams, melgram), axis=0)
+	
+	if librosa_exists:
+		for audio_path in audio_paths:
+			melgram = ap.compute_melgram(audio_path)
+			melgrams = np.concatenate((melgrams, melgram), axis=0)
+	else:
+		for melgram_path in melgram_paths:
+			melgram = np.load(melgram_path)
+			melgrams = np.concatenate((melgrams, melgram), axis=0)
 
 	# load model like this
 	if net == 'cnn':
