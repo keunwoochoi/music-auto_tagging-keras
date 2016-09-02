@@ -1,7 +1,6 @@
 import numpy as np
 import convnet, recurrentnet
 import audio_processor as ap
-import pdb
 
 def sort_result(tags, preds):
 	result = zip(tags, preds)
@@ -37,11 +36,12 @@ def main(net):
 	model.summary()
 	print('Loading weights of %s...' % net)
 	model.load_weights('data/%s_weights_best.hdf5' % net)
-	pdb.set_trace()
 	# predict the tags like this
 	print('Predicting...')
+	start = time.time()
 	pred_tags = model.predict(melgrams)
 	# print like this...
+	print "Prediction is done. It took %d seconds." % (time.time()-start)
 	print('Printing top-15 tags for each track...')
 	for song_idx, audio_path in enumerate(audio_paths):
 		sorted_result = sort_result(tags, pred_tags[song_idx,:].tolist())
