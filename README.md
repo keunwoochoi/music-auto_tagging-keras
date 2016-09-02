@@ -1,8 +1,8 @@
 # music-auto_tagging-keras
 
 ## The prerequisite
-* You need [`keras`](http://keras.io) and [`librosa`](http://librosa.github.io/librosa/) to execute `example.py`.
-* You need `keras` to execute `example_without_librosa.py`.
+* You need [`keras`](http://keras.io) to run `example.py`.
+  * To use your own audio file, you need [`librosa`](http://librosa.github.io/librosa/).
 * The input data shape is `(None, channel, height, width)`, i.e. following theano convention. If you're using tensorflow as your backend, you should check out `~/.keras/keras.json` if `image_dim_ordering` is set to `th`, i.e.
 ```json
 "image_dim_ordering": "th",
@@ -12,35 +12,112 @@
 ```bash
 $ python example.py
 ```
-(or `$ python example_without_librosa.py`),
 
 After a summary of convnet, the result will be printed:
 ``` bash
+$ python example.py
+Using Theano backend.
+Running main() with network: rnn
+____________________________________________________________________________________________________
+Layer (type)                     Output Shape          Param #     Connected to
+====================================================================================================
+zeropadding2d_1 (ZeroPadding2D)  (None, 1, 96, 1440)   0           zeropadding2d_input_1[0][0]
+____________________________________________________________________________________________________
+batchnormalization_1 (BatchNormal(None, 1, 96, 1440)   2880        zeropadding2d_1[0][0]
+____________________________________________________________________________________________________
+ConvBNEluDr (Sequential)         (None, 128, 1, 15)    370560      batchnormalization_1[0][0]
+____________________________________________________________________________________________________
+permute_1 (Permute)              (None, 15, 128, 1)    0           ConvBNEluDr[1][0]
+____________________________________________________________________________________________________
+reshape_1 (Reshape)              (None, 15, 128)       0           permute_1[0][0]
+____________________________________________________________________________________________________
+gru_1 (GRU)                      (None, 15, 32)        15456       reshape_1[0][0]
+____________________________________________________________________________________________________
+gru_2 (GRU)                      (None, 32)            6240        gru_1[0][0]
+____________________________________________________________________________________________________
+dropout_5 (Dropout)              (None, 32)            0           gru_2[0][0]
+____________________________________________________________________________________________________
+dense_1 (Dense)                  (None, 50)            1650        dropout_5[0][0]
+====================================================================================================
+Total params: 396786
+____________________________________________________________________________________________________
+Loading weights of rnn...
+Predicting...
+Prediction is done. It took 11 seconds.
+Printing top-15 tags for each track...
 data/bensound-cute.mp3
-[('jazz', 0.32834091782569885), ('folk', 0.17664788663387299), ('instrumental', 0.1569863110780716), ('guitar', 0.10749899595975876), ('acoustic', 0.08458312600851059), ('female vocalists', 0.06621211022138596), ('indie', 0.0627480000257492), ('chillout', 0.05570304021239281), ('rock', 0.04766707867383957), ('pop', 0.04348916560411453)]
+[('jazz', '0.166'), ('indie', '0.136'), ('ambient', '0.124'), ('folk', '0.123'), ('electronic', '0.121')]
+[('female vocalists', '0.117'), ('chillout', '0.107'), ('instrumental', '0.094'), ('acoustic', '0.081'), ('rock', '0.075')]
+[('Mellow', '0.070'), ('pop', '0.069'), ('beautiful', '0.064'), ('alternative', '0.063'), ('electronica', '0.038')]
 
 data/bensound-actionable.mp3
-[('rock', 0.4575064182281494), ('classic rock', 0.3454620838165283), ('punk', 0.23092204332351685), ('60s', 0.11653172969818115), ('70s', 0.11155932396650314), ('hard rock', 0.10467251390218735), ('indie', 0.1011115238070488), ('80s', 0.09881759434938431), ('alternative', 0.0769491195678711), ('Progressive rock', 0.0754147469997406)]
+[('rock', '0.395'), ('classic rock', '0.208'), ('hard rock', '0.114'), ('80s', '0.103'), ('60s', '0.071')]
+[('pop', '0.069'), ('70s', '0.067'), ('blues', '0.063'), ('punk', '0.061'), ('oldies', '0.052')]
+[('alternative', '0.051'), ('country', '0.045'), ('indie', '0.041'), ('heavy metal', '0.032'), ('alternative rock', '0.030')]
 
 data/bensound-dubstep.mp3
-[('Hip-Hop', 0.1726689487695694), ('rock', 0.10726829618215561), ('electronic', 0.10054843127727509), ('female vocalists', 0.07955039292573929), ('pop', 0.07343248277902603), ('alternative', 0.05530229210853577), ('indie', 0.04597167670726776), ('rnb', 0.04486352205276489), ('80s', 0.031885139644145966), ('90s', 0.02957077883183956)]
+[('dance', '0.400'), ('electronic', '0.311'), ('pop', '0.189'), ('House', '0.104'), ('electro', '0.099')]
+[('electronica', '0.065'), ('rock', '0.056'), ('female vocalists', '0.054'), ('80s', '0.045'), ('90s', '0.041')]
+[('indie', '0.039'), ('Hip-Hop', '0.031'), ('alternative', '0.029'), ('party', '0.024'), ('rnb', '0.019')]
 
 data/bensound-thejazzpiano.mp3
-[('jazz', 0.9577991366386414), ('instrumental', 0.11406592279672623), ('guitar', 0.03199296444654465), ('rock', 0.024645458906888962), ('blues', 0.02134867012500763), ('chillout', 0.013597516342997551), ('easy listening', 0.013440641574561596), ('folk', 0.013292261399328709), ('oldies', 0.011634128168225288), ('country', 0.011065035127103329)]
+[('jazz', '0.632'), ('blues', '0.092'), ('instrumental', '0.073'), ('folk', '0.038'), ('guitar', '0.031')]
+[('rock', '0.020'), ('female vocalists', '0.020'), ('soul', '0.009'), ('experimental', '0.009'), ('oldies', '0.009')]
+[('indie', '0.008'), ('acoustic', '0.007'), ('electronic', '0.007'), ('alternative', '0.007'), ('pop', '0.007')]
+
+Running main() with network: cnn
+____________________________________________________________________________________________________
+Layer (type)                     Output Shape          Param #     Connected to
+====================================================================================================
+batchnormalization_6 (BatchNormal(None, 1, 96, 1366)   2732        batchnormalization_input_1[0][0]
+____________________________________________________________________________________________________
+sequential_3 (Sequential)        (None, 256, 1, 1)     850368      batchnormalization_6[0][0]
+____________________________________________________________________________________________________
+flatten_1 (Flatten)              (None, 256)           0           sequential_3[1][0]
+____________________________________________________________________________________________________
+dense_2 (Dense)                  (None, 50)            12850       flatten_1[0][0]
+====================================================================================================
+Total params: 865950
+____________________________________________________________________________________________________
+Loading weights of cnn...
+Predicting...
+Prediction is done. It took 14 seconds.
+Printing top-15 tags for each track...
+data/bensound-cute.mp3
+[('jazz', '0.393'), ('instrumental', '0.183'), ('folk', '0.143'), ('guitar', '0.109'), ('female vocalists', '0.067')]
+[('acoustic', '0.062'), ('chillout', '0.061'), ('indie', '0.045'), ('electronic', '0.044'), ('rock', '0.041')]
+[('pop', '0.040'), ('Mellow', '0.035'), ('chill', '0.034'), ('blues', '0.033'), ('ambient', '0.032')]
+
+data/bensound-actionable.mp3
+[('rock', '0.473'), ('classic rock', '0.381'), ('punk', '0.198'), ('60s', '0.127'), ('hard rock', '0.123')]
+[('indie', '0.104'), ('70s', '0.102'), ('Progressive rock', '0.088'), ('alternative', '0.080'), ('80s', '0.080')]
+[('blues', '0.076'), ('pop', '0.059'), ('indie rock', '0.056'), ('alternative rock', '0.039'), ('heavy metal', '0.033')]
+
+data/bensound-dubstep.mp3
+[('Hip-Hop', '0.139'), ('rock', '0.111'), ('electronic', '0.089'), ('pop', '0.088'), ('female vocalists', '0.072')]
+[('alternative', '0.050'), ('rnb', '0.049'), ('80s', '0.044'), ('indie', '0.042'), ('90s', '0.038')]
+[('soul', '0.035'), ('electronica', '0.027'), ('dance', '0.023'), ('hard rock', '0.022'), ('experimental', '0.020')]
+
+data/bensound-thejazzpiano.mp3
+[('jazz', '0.964'), ('instrumental', '0.128'), ('guitar', '0.040'), ('rock', '0.026'), ('blues', '0.020')]
+[('chillout', '0.019'), ('easy listening', '0.014'), ('folk', '0.014'), ('experimental', '0.013'), ('female vocalists', '0.013')]
+[('electronic', '0.012'), ('alternative', '0.011'), ('oldies', '0.011'), ('Progressive rock', '0.010'), ('soul', '0.009')]
 ```
 
 ## Files
 * [example.py](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/example.py): example
-* [example_without_librosa.py](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/example_without_librosa.py): example that doesn't require librosa because it uses pre-computed mel-spectrograms. If you want to test your own music files, you will anyway need to install [`librosa`](http://librosa.github.io/librosa/).
 * [convnet.py](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/convnet.py): build and compile a convnet model
+* [recurrentnet.py](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/recurrentnet.py): build and compile a recurrentnet model
 * [audio_processor.py](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/audio_processor.py): compute mel-spectrogram using librosa
 * Under [data/](https://github.com/keunwoochoi/music-auto_tagging-keras/tree/master/data),
   - four .mp3 files: test files
   - four .npy files: pre-computed melgram for those who don't want to install librosa
-  - [weights_best.hdf5](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/data/weights_best.hdf5): pre-trained weights so that you don't need to train by yourself.
+  - [cnn_weights_best.hdf5](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/data/cnn_weights_best.hdf5): pre-trained weights so that you don't need to train by yourself.
+  - [rnn_weights_best.hdf5](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/data/rnn_weights_best.hdf5): similar but it uses conv+rnn. 
 
 ### The model
-AUC score of 0.8454 for 50 music tags, trained on Million-Song Dataset.
+convnet: AUC score of 0.8454 for 50 music tags, trained on Million-Song Dataset.
+rnn: AUC score: 0.8xx ..(it is currently learning).
 The tags are...
 ```python
 ['rock', 'pop', 'alternative', 'indie', 'electronic', 'female vocalists', 
@@ -54,7 +131,7 @@ The tags are...
 ```
 
 ### The convnet
-is like this. A 'Narrow' version, which is quite nice considering a wide and very deep convnet shows AUC of 0.8595.
+is like this. A 'Narrow' version of the convnet in my paper, which is quite nice considering a wide and very deep convnet shows AUC of 0.8595.
 ```bash
 ____________________________________________________________________________________________________
 Layer (type)                     Output Shape          Param #     Connected to
@@ -114,6 +191,9 @@ ________________________________________________________________________________
 ```
 * More info: [on this paper](https://arxiv.org/abs/1606.00298), or [blog post](https://keunwoochoi.wordpress.com/2016/06/02/paper-is-out-automatic-tagging-using-deep-convolutional-neural-networks/).
 * Also please take a look on the [slide](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/slide-ismir-2016.pdf) at ismir 2016. It includes some results that are not in the paper.
+
+#### The rnn
+will update soon.
 
 ### Credits
 * Please cite [this paper](https://scholar.google.co.kr/citations?view_op=view_citation&hl=en&user=ZrqdSu4AAAAJ&citation_for_view=ZrqdSu4AAAAJ:3fE2CSJIrl8C), *Automatic Tagging using Deep Convolutional Neural Networks*, Keunwoo Choi, George Fazekas, Mark Sandler
