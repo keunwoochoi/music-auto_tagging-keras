@@ -45,7 +45,7 @@
  * Prediction: ConvNet > RecurrentNet
  * Memory Usage: RecurrentNet have smaller number of trainable parameters. Actually you can even decreases the number of feature maps. The RecurrentNet still works quite well in the case - i.e., the current setting is a little bit rich (or redundant). With ConvNet, you will see the performance decrease if you reduce down the parameters. 
 
-Therefore, if you just wanna use the pre-trained weights, use ConvNet. If you wanna train by yourself, it's up to you. I would use RecurrentNet after downsize it to, like, 0.2M parameters (then the training time would be similar to ConvNet) in general.
+Therefore, if you just wanna use the pre-trained weights, use ConvNet. If you wanna train by yourself, it's up to you. I would use RecurrentNet after downsizing it to, like, 0.2M parameters (then the training time would be similar to ConvNet) in general. To reduce the size, change `nums_feat_maps` under `get_convBNeluMPdrop` in `recurrentnet.py`.
 
 ### Usage
 ```bash
