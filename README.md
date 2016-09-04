@@ -1,4 +1,5 @@
-# music-auto_tagging-keras
+# Music Auto-Tagger
+Music auto-tagger using keras
 
 ### The prerequisite
 * You need [`keras`](http://keras.io) to run `example.py`.
