@@ -55,7 +55,6 @@ Please take a look on the codes, it's pretty simple.
 
 ### Result
 
-After a summary of the networks, the result will be printed:
 ``` bash
 $ python example.py
 Running main() with network: cnn and backend: tensorflow
