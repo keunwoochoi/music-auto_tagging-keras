@@ -15,14 +15,14 @@
 ##### ConvNet 
  * 5-layer 2D Convolutions
  * num_parameter: 865,950
- * AUC score of 0.8454
+ * AUC score of 0.8654
 
 (FYI: with 3M parameter, a deeper ConvNet showed 0.8595 AUC.)
 
 ##### RecurrentNet
  * 4-layer 2D Convolutions + 2 GRU 
  * num_parameter: 396,786
- * AUC score: 0.8xx ..(it is currently learning).
+ * AUC score: 0.8662
 
 ### How was it trained?
  * Using 29.1s music files in [Million Song Dataset](http://labrosa.ee.columbia.edu/millionsong/)
@@ -58,56 +58,55 @@ Please take a look on the codes, it's pretty simple.
 After a summary of the networks, the result will be printed:
 ``` bash
 $ python example.py
-Using Theano backend.
-Running main() with network: cnn and backend: theano
+Running main() with network: cnn and backend: tensorflow
 Loading weights of cnn...
 Predicting...
-Prediction is done. It took 6 seconds.
+Prediction is done. It took 3 seconds.
 Printing top-15 tags for each track...
 data/bensound-cute.mp3
-[('jazz', '0.393'), ('instrumental', '0.183'), ('folk', '0.143'), ('guitar', '0.109'), ('female vocalists', '0.067')]
-[('acoustic', '0.062'), ('chillout', '0.061'), ('indie', '0.045'), ('electronic', '0.044'), ('rock', '0.041')]
-[('pop', '0.040'), ('Mellow', '0.035'), ('chill', '0.034'), ('blues', '0.033'), ('ambient', '0.032')]
+[('folk', '0.222'), ('pop', '0.166'), ('jazz', '0.160'), ('female vocalists', '0.092'), ('acoustic', '0.075')]
+[('rock', '0.070'), ('easy listening', '0.059'), ('indie', '0.055'), ('Mellow', '0.051'), ('beautiful', '0.036')]
+[('alternative', '0.035'), ('soul', '0.034'), ('guitar', '0.033'), ('country', '0.032'), ('chillout', '0.027')]
 
 data/bensound-actionable.mp3
-[('rock', '0.473'), ('classic rock', '0.381'), ('punk', '0.198'), ('60s', '0.127'), ('hard rock', '0.123')]
-[('indie', '0.104'), ('70s', '0.102'), ('Progressive rock', '0.088'), ('alternative', '0.080'), ('80s', '0.080')]
-[('blues', '0.076'), ('pop', '0.059'), ('indie rock', '0.056'), ('alternative rock', '0.039'), ('heavy metal', '0.033')]
+[('rock', '0.592'), ('classic rock', '0.245'), ('pop', '0.119'), ('alternative', '0.109'), ('punk', '0.086')]
+[('indie', '0.083'), ('80s', '0.076'), ('hard rock', '0.073'), ('female vocalists', '0.062'), ('indie rock', '0.051')]
+[('alternative rock', '0.048'), ('blues', '0.047'), ('70s', '0.045'), ('90s', '0.039'), ('60s', '0.036')]
 
 data/bensound-dubstep.mp3
-[('Hip-Hop', '0.139'), ('rock', '0.111'), ('electronic', '0.089'), ('pop', '0.088'), ('female vocalists', '0.072')]
-[('alternative', '0.050'), ('rnb', '0.049'), ('80s', '0.044'), ('indie', '0.042'), ('90s', '0.038')]
-[('soul', '0.035'), ('electronica', '0.027'), ('dance', '0.023'), ('hard rock', '0.022'), ('experimental', '0.020')]
+[('electronic', '0.313'), ('Hip-Hop', '0.160'), ('electro', '0.116'), ('rock', '0.107'), ('pop', '0.085')]
+[('dance', '0.078'), ('electronica', '0.077'), ('alternative', '0.064'), ('female vocalists', '0.047'), ('rnb', '0.047')]
+[('indie', '0.035'), ('sexy', '0.031'), ('alternative rock', '0.031'), ('00s', '0.027'), ('hard rock', '0.024')]
 
 data/bensound-thejazzpiano.mp3
-[('jazz', '0.964'), ('instrumental', '0.128'), ('guitar', '0.040'), ('rock', '0.026'), ('blues', '0.020')]
-[('chillout', '0.019'), ('easy listening', '0.014'), ('folk', '0.014'), ('experimental', '0.013'), ('female vocalists', '0.013')]
-[('electronic', '0.012'), ('alternative', '0.011'), ('oldies', '0.011'), ('Progressive rock', '0.010'), ('soul', '0.009')]
+[('jazz', '0.799'), ('instrumental', '0.420'), ('guitar', '0.042'), ('blues', '0.028'), ('rock', '0.023')]
+[('Progressive rock', '0.021'), ('easy listening', '0.020'), ('experimental', '0.018'), ('oldies', '0.013'), ('chillout', '0.009')]
+[('60s', '0.009'), ('alternative', '0.009'), ('folk', '0.009'), ('classic rock', '0.007'), ('indie', '0.007')]
 
-Running main() with network: rnn and backend: theano
+Running main() with network: rnn and backend: tensorflow
 Loading weights of rnn...
 Predicting...
-Prediction is done. It took 9 seconds.
+Prediction is done. It took 8 seconds.
 Printing top-15 tags for each track...
 data/bensound-cute.mp3
-[('jazz', '0.166'), ('indie', '0.136'), ('ambient', '0.124'), ('folk', '0.123'), ('electronic', '0.121')]
-[('female vocalists', '0.117'), ('chillout', '0.107'), ('instrumental', '0.094'), ('acoustic', '0.081'), ('rock', '0.075')]
-[('Mellow', '0.070'), ('pop', '0.069'), ('beautiful', '0.064'), ('alternative', '0.063'), ('electronica', '0.038')]
+[('jazz', '0.167'), ('female vocalists', '0.165'), ('folk', '0.145'), ('pop', '0.117'), ('soul', '0.110')]
+[('rock', '0.071'), ('acoustic', '0.057'), ('easy listening', '0.055'), ('country', '0.053'), ('oldies', '0.049')]
+[('Mellow', '0.045'), ('blues', '0.045'), ('indie', '0.043'), ('beautiful', '0.032'), ('chillout', '0.031')]
 
 data/bensound-actionable.mp3
-[('rock', '0.395'), ('classic rock', '0.208'), ('hard rock', '0.114'), ('80s', '0.103'), ('60s', '0.071')]
-[('pop', '0.069'), ('70s', '0.067'), ('blues', '0.063'), ('punk', '0.061'), ('oldies', '0.052')]
-[('alternative', '0.051'), ('country', '0.045'), ('indie', '0.041'), ('heavy metal', '0.032'), ('alternative rock', '0.030')]
+[('rock', '0.480'), ('classic rock', '0.389'), ('hard rock', '0.216'), ('blues', '0.085'), ('70s', '0.074')]
+[('80s', '0.071'), ('heavy metal', '0.053'), ('alternative', '0.040'), ('Progressive rock', '0.040'), ('60s', '0.032')]
+[('alternative rock', '0.029'), ('punk', '0.025'), ('pop', '0.024'), ('guitar', '0.022'), ('90s', '0.017')]
 
 data/bensound-dubstep.mp3
-[('dance', '0.400'), ('electronic', '0.311'), ('pop', '0.189'), ('House', '0.104'), ('electro', '0.099')]
-[('electronica', '0.065'), ('rock', '0.056'), ('female vocalists', '0.054'), ('80s', '0.045'), ('90s', '0.041')]
-[('indie', '0.039'), ('Hip-Hop', '0.031'), ('alternative', '0.029'), ('party', '0.024'), ('rnb', '0.019')]
+[('electronic', '0.513'), ('electro', '0.222'), ('dance', '0.166'), ('electronica', '0.134'), ('House', '0.098')]
+[('indie', '0.087'), ('rock', '0.086'), ('pop', '0.055'), ('alternative', '0.054'), ('Hip-Hop', '0.044')]
+[('experimental', '0.042'), ('indie rock', '0.033'), ('female vocalists', '0.024'), ('00s', '0.024'), ('party', '0.023')]
 
 data/bensound-thejazzpiano.mp3
-[('jazz', '0.632'), ('blues', '0.092'), ('instrumental', '0.073'), ('folk', '0.038'), ('guitar', '0.031')]
-[('rock', '0.020'), ('female vocalists', '0.020'), ('soul', '0.009'), ('experimental', '0.009'), ('oldies', '0.009')]
-[('indie', '0.008'), ('acoustic', '0.007'), ('electronic', '0.007'), ('alternative', '0.007'), ('pop', '0.007')]
+[('jazz', '0.915'), ('instrumental', '0.043'), ('female vocalists', '0.018'), ('guitar', '0.017'), ('easy listening', '0.014')]
+[('blues', '0.013'), ('chillout', '0.008'), ('rock', '0.008'), ('Mellow', '0.007'), ('soul', '0.006')]
+[('funk', '0.005'), ('chill', '0.005'), ('folk', '0.004'), ('pop', '0.004'), ('ambient', '0.004')]
 
 ```
 
@@ -125,8 +124,11 @@ data/bensound-thejazzpiano.mp3
 
 ### And...
 
-* More info: [on this paper](https://arxiv.org/abs/1606.00298), or [blog post](https://keunwoochoi.wordpress.com/2016/06/02/paper-is-out-automatic-tagging-using-deep-convolutional-neural-networks/).
-* Also please take a look on the [slide](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/slide-ismir-2016.pdf) at ismir 2016. It includes some results that are not in the paper.
+* More info - CNN: 
+  * [on this paper](https://arxiv.org/abs/1606.00298), or [blog post](https://keunwoochoi.wordpress.com/2016/06/02/paper-is-out-automatic-tagging-using-deep-convolutional-neural-networks/).
+  * Also please take a look on the [slide](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/slide-ismir-2016.pdf) at ismir 2016. It includes some results that are not in the paper.
+* More info - RNN:
+  * Paper/slide coming soon.
 
 ### Credits
 * Please cite [this paper](https://scholar.google.co.kr/citations?view_op=view_citation&hl=en&user=ZrqdSu4AAAAJ&citation_for_view=ZrqdSu4AAAAJ:3fE2CSJIrl8C), *Automatic Tagging using Deep Convolutional Neural Networks*, Keunwoo Choi, George Fazekas, Mark Sandler
