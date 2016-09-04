@@ -59,33 +59,35 @@ After a summary of the networks, the result will be printed:
 ``` bash
 $ python example.py
 Using Theano backend.
-Running main() with network: rnn
-____________________________________________________________________________________________________
-Layer (type)                     Output Shape          Param #     Connected to
-====================================================================================================
-zeropadding2d_1 (ZeroPadding2D)  (None, 1, 96, 1440)   0           zeropadding2d_input_1[0][0]
-____________________________________________________________________________________________________
-batchnormalization_1 (BatchNormal(None, 1, 96, 1440)   2880        zeropadding2d_1[0][0]
-____________________________________________________________________________________________________
-ConvBNEluDr (Sequential)         (None, 128, 1, 15)    370560      batchnormalization_1[0][0]
-____________________________________________________________________________________________________
-permute_1 (Permute)              (None, 15, 128, 1)    0           ConvBNEluDr[1][0]
-____________________________________________________________________________________________________
-reshape_1 (Reshape)              (None, 15, 128)       0           permute_1[0][0]
-____________________________________________________________________________________________________
-gru_1 (GRU)                      (None, 15, 32)        15456       reshape_1[0][0]
-____________________________________________________________________________________________________
-gru_2 (GRU)                      (None, 32)            6240        gru_1[0][0]
-____________________________________________________________________________________________________
-dropout_5 (Dropout)              (None, 32)            0           gru_2[0][0]
-____________________________________________________________________________________________________
-dense_1 (Dense)                  (None, 50)            1650        dropout_5[0][0]
-====================================================================================================
-Total params: 396786
-____________________________________________________________________________________________________
+Running main() with network: cnn and backend: theano
+Loading weights of cnn...
+Predicting...
+Prediction is done. It took 6 seconds.
+Printing top-15 tags for each track...
+data/bensound-cute.mp3
+[('jazz', '0.393'), ('instrumental', '0.183'), ('folk', '0.143'), ('guitar', '0.109'), ('female vocalists', '0.067')]
+[('acoustic', '0.062'), ('chillout', '0.061'), ('indie', '0.045'), ('electronic', '0.044'), ('rock', '0.041')]
+[('pop', '0.040'), ('Mellow', '0.035'), ('chill', '0.034'), ('blues', '0.033'), ('ambient', '0.032')]
+
+data/bensound-actionable.mp3
+[('rock', '0.473'), ('classic rock', '0.381'), ('punk', '0.198'), ('60s', '0.127'), ('hard rock', '0.123')]
+[('indie', '0.104'), ('70s', '0.102'), ('Progressive rock', '0.088'), ('alternative', '0.080'), ('80s', '0.080')]
+[('blues', '0.076'), ('pop', '0.059'), ('indie rock', '0.056'), ('alternative rock', '0.039'), ('heavy metal', '0.033')]
+
+data/bensound-dubstep.mp3
+[('Hip-Hop', '0.139'), ('rock', '0.111'), ('electronic', '0.089'), ('pop', '0.088'), ('female vocalists', '0.072')]
+[('alternative', '0.050'), ('rnb', '0.049'), ('80s', '0.044'), ('indie', '0.042'), ('90s', '0.038')]
+[('soul', '0.035'), ('electronica', '0.027'), ('dance', '0.023'), ('hard rock', '0.022'), ('experimental', '0.020')]
+
+data/bensound-thejazzpiano.mp3
+[('jazz', '0.964'), ('instrumental', '0.128'), ('guitar', '0.040'), ('rock', '0.026'), ('blues', '0.020')]
+[('chillout', '0.019'), ('easy listening', '0.014'), ('folk', '0.014'), ('experimental', '0.013'), ('female vocalists', '0.013')]
+[('electronic', '0.012'), ('alternative', '0.011'), ('oldies', '0.011'), ('Progressive rock', '0.010'), ('soul', '0.009')]
+
+Running main() with network: rnn and backend: theano
 Loading weights of rnn...
 Predicting...
-Prediction is done. It took 11 seconds.
+Prediction is done. It took 9 seconds.
 Printing top-15 tags for each track...
 data/bensound-cute.mp3
 [('jazz', '0.166'), ('indie', '0.136'), ('ambient', '0.124'), ('folk', '0.123'), ('electronic', '0.121')]
@@ -107,43 +109,6 @@ data/bensound-thejazzpiano.mp3
 [('rock', '0.020'), ('female vocalists', '0.020'), ('soul', '0.009'), ('experimental', '0.009'), ('oldies', '0.009')]
 [('indie', '0.008'), ('acoustic', '0.007'), ('electronic', '0.007'), ('alternative', '0.007'), ('pop', '0.007')]
 
-Running main() with network: cnn
-____________________________________________________________________________________________________
-Layer (type)                     Output Shape          Param #     Connected to
-====================================================================================================
-batchnormalization_6 (BatchNormal(None, 1, 96, 1366)   2732        batchnormalization_input_1[0][0]
-____________________________________________________________________________________________________
-sequential_3 (Sequential)        (None, 256, 1, 1)     850368      batchnormalization_6[0][0]
-____________________________________________________________________________________________________
-flatten_1 (Flatten)              (None, 256)           0           sequential_3[1][0]
-____________________________________________________________________________________________________
-dense_2 (Dense)                  (None, 50)            12850       flatten_1[0][0]
-====================================================================================================
-Total params: 865950
-____________________________________________________________________________________________________
-Loading weights of cnn...
-Predicting...
-Prediction is done. It took 14 seconds.
-Printing top-15 tags for each track...
-data/bensound-cute.mp3
-[('jazz', '0.393'), ('instrumental', '0.183'), ('folk', '0.143'), ('guitar', '0.109'), ('female vocalists', '0.067')]
-[('acoustic', '0.062'), ('chillout', '0.061'), ('indie', '0.045'), ('electronic', '0.044'), ('rock', '0.041')]
-[('pop', '0.040'), ('Mellow', '0.035'), ('chill', '0.034'), ('blues', '0.033'), ('ambient', '0.032')]
-
-data/bensound-actionable.mp3
-[('rock', '0.473'), ('classic rock', '0.381'), ('punk', '0.198'), ('60s', '0.127'), ('hard rock', '0.123')]
-[('indie', '0.104'), ('70s', '0.102'), ('Progressive rock', '0.088'), ('alternative', '0.080'), ('80s', '0.080')]
-[('blues', '0.076'), ('pop', '0.059'), ('indie rock', '0.056'), ('alternative rock', '0.039'), ('heavy metal', '0.033')]
-
-data/bensound-dubstep.mp3
-[('Hip-Hop', '0.139'), ('rock', '0.111'), ('electronic', '0.089'), ('pop', '0.088'), ('female vocalists', '0.072')]
-[('alternative', '0.050'), ('rnb', '0.049'), ('80s', '0.044'), ('indie', '0.042'), ('90s', '0.038')]
-[('soul', '0.035'), ('electronica', '0.027'), ('dance', '0.023'), ('hard rock', '0.022'), ('experimental', '0.020')]
-
-data/bensound-thejazzpiano.mp3
-[('jazz', '0.964'), ('instrumental', '0.128'), ('guitar', '0.040'), ('rock', '0.026'), ('blues', '0.020')]
-[('chillout', '0.019'), ('easy listening', '0.014'), ('folk', '0.014'), ('experimental', '0.013'), ('female vocalists', '0.013')]
-[('electronic', '0.012'), ('alternative', '0.011'), ('oldies', '0.011'), ('Progressive rock', '0.010'), ('soul', '0.009')]
 ```
 
 ### Files
