@@ -1,8 +1,8 @@
 import time
 import numpy as np
 from keras import backend as K
-import convnet
-import recurrentnet
+from audio_convnet import AudioConvnet
+from audio_conv_rnn import AudioConvRNN
 import audio_processor as ap
 
 
@@ -59,25 +59,24 @@ def main(net):
 
     # load model like this
     if net == 'cnn':
-        model = convnet.build_convnet_model()
+        model = AudioConvnet()
     elif net == 'rnn':
-        model = recurrentnet.build_recurrentnet_model()
-
+        model = AudioConvRNN()
+    
     print('Loading weights of %s...' % net)
-    model.load_weights('data/%s_weights_%s.hdf5' % (net, K._BACKEND))
+    model.load_weights('data/%s_weights_%s.h5' % (net, K._BACKEND))
     # predict the tags like this
     print('Predicting...')
     start = time.time()
     pred_tags = model.predict(melgrams)
     # print like this...
     print "Prediction is done. It took %d seconds." % (time.time()-start)
-    print('Printing top-15 tags for each track...')
+    print('Printing top-10 tags for each track...')
     for song_idx, audio_path in enumerate(audio_paths):
         sorted_result = sort_result(tags, pred_tags[song_idx, :].tolist())
         print(audio_path)
         print(sorted_result[:5])
         print(sorted_result[5:10])
-        print(sorted_result[10:15])
         print(' ')
     return
 
