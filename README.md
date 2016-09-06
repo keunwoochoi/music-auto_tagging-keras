@@ -112,14 +112,14 @@ data/bensound-thejazzpiano.mp3
 
 ### Files
 * [example.py](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/example.py): example
-* [convnet.py](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/convnet.py): build and compile a convnet model
-* [recurrentnet.py](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/recurrentnet.py): build and compile a recurrentnet model
+* [audio_convnet.py](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/audio_convnet.py): build a convnet model
+* [audio_conv_rnn.py](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/audio_conv_rnn.py): build a recurrentnet model
 * [audio_processor.py](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/audio_processor.py): compute mel-spectrogram using librosa
 * Under [data/](https://github.com/keunwoochoi/music-auto_tagging-keras/tree/master/data),
   - four .mp3 files: test files
   - four .npy files: pre-computed melgram for those who don't want to install librosa
-  - [cnn_weights_best.hdf5](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/data/cnn_weights_best.hdf5): pre-trained weights so that you don't need to train by yourself.
-  - [rnn_weights_best.hdf5](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/data/rnn_weights_best.hdf5): similar but it uses conv+rnn. 
+  - [cnn_weights_tensorflow.h5](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/data/cnn_weights_tensorflow.h5), [cnn_weights_theano.h5](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/data/cnn_weights_theano.h5): pre-trained weights so that you don't need to train by yourself.
+  - [rnn_weights_tensorflow.h5](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/data/rnn_weights_tensorflow.h5), [rnn_weights_theano.h5](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/data/rnn_weights_theano.h5): similar but it's for conv+rnn. 
 
 
 ### And...
