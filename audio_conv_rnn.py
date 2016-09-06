@@ -114,19 +114,19 @@ def AudioConvRNN(weights='msd', input_tensor=None):
 
     # Create model
     model = Model(melgram_input, x)
-    model.load_weights('data/%s_weights_%s.h5' % ('rnn', K._BACKEND))
     if True:
+        model.load_weights('data/%s_weights_%s.h5' % ('rnn', K._BACKEND))
         return model
+    else: # This is for keras-application    
+        # Load input
+        if K._BACKEND == 'theano':
+            weights_path = get_file('rnn_weights_theano.h5',
+                                    TH_WEIGHTS_PATH,
+                                    cache_subdir='models')
+        else:
+            weights_path = get_file('rnn_weights_tensorflow.h5',
+                                    TF_WEIGHTS_PATH,
+                                    cache_subdir='models')
         
-    # Load input
-    if K._BACKEND == 'theano':
-        weights_path = get_file('rnn_weights_theano.h5',
-                                TH_WEIGHTS_PATH,
-                                cache_subdir='models')
-    else:
-        weights_path = get_file('rnn_weights_tensorflow.h5',
-                                TF_WEIGHTS_PATH,
-                                cache_subdir='models')
-    
-    model.load_weights(weights_path)
-    return model
+        model.load_weights(weights_path)
+        return model
