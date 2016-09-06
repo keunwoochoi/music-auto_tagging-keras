@@ -120,6 +120,7 @@ def AudioConvnet(weights='msd', input_tensor=None):
     if True:
         model.load_weights('data/%s_weights_%s.h5' % ('cnn', K._BACKEND))
         return model
+        
     else: # This is for keras-application
         # Load input
         if K._BACKEND == 'theano':
