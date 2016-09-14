@@ -24,9 +24,10 @@ TF_WEIGHTS_PATH = 'https://github.com/keunwoochoi/music-auto_tagging-keras/blob/
 def AudioConvnet(weights='msd', input_tensor=None):
     '''Instantiate the AudioConvnet architecture,
     optionally loading weights pre-trained
-    on Million Song Dataset. Note that when using TensorFlow,
-    for best performance you should set
-    `image_dim_ordering="tf"` in your Keras config
+    on Million Song Dataset. 
+
+    To use pre-trained weights, you should set
+    `image_dim_ordering="th"` in your Keras config
     at ~/.keras/keras.json.
 
     The model and the weights are compatible with both
@@ -117,12 +118,13 @@ def AudioConvnet(weights='msd', input_tensor=None):
 
     # Create model
     model = Model(melgram_input, x)
-    if True:
-        model.load_weights('data/%s_weights_%s.h5' % ('cnn', K._BACKEND))
-        return model
-        
-    else: # This is for keras-application
+    if weights is None:
+        return model    
+    else: 
         # Load input
+        if K.image_dim_ordering == 'tf':
+            raise RuntimeError("Please set image_dim_ordering == 'th'." + \
+                "You can set it at ~/.keras/keras.json")
         if K._BACKEND == 'theano':
             weights_path = get_file('rnn_weights_theano.h5',
                                     TH_WEIGHTS_PATH,
