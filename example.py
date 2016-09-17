@@ -64,9 +64,9 @@ def main(net):
 
     # load model like this
     if net == 'cnn':
-        model = AudioConvnet()
+        model = AudioConvnet(weights=None)
     elif net == 'rnn':
-        model = AudioConvRNN()
+        model = AudioConvRNN(weights=None)
     
     print('Loading weights of %s...' % net)
     model.load_weights('data/%s_weights_%s.h5' % (net, K._BACKEND))
