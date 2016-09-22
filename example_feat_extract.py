@@ -6,11 +6,6 @@ from music_tagger_crnn import MusicTaggerCRNN
 import audio_processor as ap
 import pdb
 
-def sort_result(tags, preds):
-    result = zip(tags, preds)
-    sorted_result = sorted(result, key=lambda x: x[1], reverse=True)
-    return [(name, '%5.3f' % score) for name, score in sorted_result]
-
 
 def librosa_exists():
     try:
@@ -38,18 +33,6 @@ def main(net):
                      'data/bensound-dubstep.npy',
                      'data/bensound-thejazzpiano.npy']
 
-    tags = ['rock', 'pop', 'alternative', 'indie', 'electronic',
-            'female vocalists', 'dance', '00s', 'alternative rock', 'jazz',
-            'beautiful', 'metal', 'chillout', 'male vocalists',
-            'classic rock', 'soul', 'indie rock', 'Mellow', 'electronica',
-            '80s', 'folk', '90s', 'chill', 'instrumental', 'punk',
-            'oldies', 'blues', 'hard rock', 'ambient', 'acoustic',
-            'experimental', 'female vocalist', 'guitar', 'Hip-Hop',
-            '70s', 'party', 'country', 'easy listening',
-            'sexy', 'catchy', 'funk', 'electro', 'heavy metal',
-            'Progressive rock', '60s', 'rnb', 'indie pop',
-            'sad', 'House', 'happy']
-
     # prepare data like this
     melgrams = np.zeros((0, 1, 96, 1366))
 
@@ -64,26 +47,14 @@ def main(net):
 
     # load model like this
     if net == 'cnn':
-        model = MusicTaggerCNN(weights=None)
+        model = MusicTaggerCNN(weights='msd', include_top=False)
     elif net == 'crnn':
-        model = MusicTaggerCRNN(weights=None)
-    
-    print('Loading weights of %s...' % net)
-    model.load_weights('data/music_tagger_%s_weights_%s.h5' % (net, K._BACKEND))
+        model = MusicTaggerCRNN(weights='msd', include_top=False)
     # predict the tags like this
-    print('Predicting...')
+    print('Predicting features...')
     start = time.time()
-    pred_tags = model.predict(melgrams)
-    # print like this...
-    print "Prediction is done. It took %d seconds." % (time.time()-start)
-    print('Printing top-10 tags for each track...')
-    for song_idx, audio_path in enumerate(audio_paths):
-        sorted_result = sort_result(tags, pred_tags[song_idx, :].tolist())
-        print(audio_path)
-        print(sorted_result[:5])
-        print(sorted_result[5:10])
-        print(' ')
-
+    features = model.predict(melgrams)
+    print features[:, :10]
     return
 
 if __name__ == '__main__':

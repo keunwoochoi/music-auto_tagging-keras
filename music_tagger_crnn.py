@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 '''MusicTaggerCRNN model for Keras.
 
+# Reference:
+
+- [Music-auto_tagging-keras](https://github.com/keunwoochoi/music-auto_tagging-keras)
+
 '''
 from keras import backend as K
 from keras.layers import Input, Dense
@@ -13,11 +17,12 @@ from keras.layers.advanced_activations import ELU
 from keras.layers.recurrent import GRU
 from keras.utils.data_utils import get_file
 
-TH_WEIGHTS_PATH = 'https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/data/rnn_weights_theano.hdf5'
-TF_WEIGHTS_PATH = 'https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/data/rnn_weights_tensorflow.hdf5'
+TH_WEIGHTS_PATH = 'https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/data/music_tagger_crnn_weights_theano.h5'
+TF_WEIGHTS_PATH = 'https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/data/music_tagger_crnn_weights_tensorflow.h5'
 
 
-def MusicTaggerCRNN(weights='msd', input_tensor=None):
+def MusicTaggerCRNN(weights='msd', input_tensor=None,
+                    include_top=True):
     '''Instantiate the MusicTaggerCRNN architecture,
     optionally loading weights pre-trained
     on Million Song Dataset. Note that when using TensorFlow,
@@ -40,6 +45,9 @@ def MusicTaggerCRNN(weights='msd', input_tensor=None):
             or "msd" (pre-training on ImageNet).
         input_tensor: optional Keras tensor (i.e. output of `layers.Input()`)
             to use as image input for the model.
+        include_top: whether to include the 1 fully-connected
+            layer (output layer) at the top of the network.
+            If False, the network outputs 32-dim features.
 
 
     # Returns
@@ -115,7 +123,8 @@ def MusicTaggerCRNN(weights='msd', input_tensor=None):
     x = GRU(32, return_sequences=True, name='gru1')(x)
     x = GRU(32, return_sequences=False, name='gru2')(x)
     x = Dropout(0.3)(x)
-    x = Dense(50, activation='sigmoid', name='output')(x)
+    if include_top:
+        x = Dense(50, activation='sigmoid', name='output')(x)
 
     # Create model
     model = Model(melgram_input, x)
@@ -124,7 +133,11 @@ def MusicTaggerCRNN(weights='msd', input_tensor=None):
     else: 
         # Load input
         if K.image_dim_ordering == 'tf':
-            raise RuntimeError("Please set image_dim_ordering == 'th'." + \
-                "You can set it at ~/.keras/keras.json")
-        model.load_weights('data/music_tagger_crnn_weights_theano.h5')
+            raise RuntimeError("Please set image_dim_ordering == 'th'."
+                               "You can set it at ~/.keras/keras.json")
+        if include_top:
+            model.load_weights('data/music_tagger_crnn_weights_theano.h5')
+        else:
+            model.load_weights('data/music_tagger_crnn_weights_theano.h5',
+                                by_name=True)
         return model
