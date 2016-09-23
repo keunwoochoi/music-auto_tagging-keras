@@ -1,10 +1,10 @@
 import time
 import numpy as np
 from keras import backend as K
-from audio_convnet import AudioConvnet
-from audio_conv_rnn import AudioConvRNN
+from music_tagger_cnn import MusicTaggerCNN
+from music_tagger_crnn import MusicTaggerCRNN
 import audio_processor as ap
-
+import pdb
 
 def sort_result(tags, preds):
     result = zip(tags, preds)
@@ -64,12 +64,10 @@ def main(net):
 
     # load model like this
     if net == 'cnn':
-        model = AudioConvnet(weights=None)
-    elif net == 'rnn':
-        model = AudioConvRNN(weights=None)
+        model = MusicTaggerCNN(weights='msd')
+    elif net == 'crnn':
+        model = MusicTaggerCRNN(weights='msd')
     
-    print('Loading weights of %s...' % net)
-    model.load_weights('data/%s_weights_%s.h5' % (net, K._BACKEND))
     # predict the tags like this
     print('Predicting...')
     start = time.time()
@@ -83,10 +81,11 @@ def main(net):
         print(sorted_result[:5])
         print(sorted_result[5:10])
         print(' ')
+
     return
 
 if __name__ == '__main__':
 
-    networks = ['cnn', 'rnn']
+    networks = ['cnn', 'crnn']
     for net in networks:
         main(net)
