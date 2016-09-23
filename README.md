@@ -137,6 +137,6 @@ data/bensound-thejazzpiano.mp3
 ### Credits
 * Convnet: [*Automatic Tagging using Deep Convolutional Neural Networks*](https://scholar.google.co.kr/citations?view_op=view_citation&hl=en&user=ZrqdSu4AAAAJ&citation_for_view=ZrqdSu4AAAAJ:3fE2CSJIrl8C), Keunwoo Choi, George Fazekas, Mark Sandler
 17th International Society for Music Information Retrieval Conference, New York, USA, 2016
-* ConvRNN : [Convolutional Recurrent Neural Networks for Music Classification](https://scholar.google.co.kr/citations?view_op=view_citation&hl=en&user=ZrqdSu4AAAAJ&sortby=pubdate&citation_for_view=ZrqdSu4AAAAJ:ULOm3_A8WrAC), Keunwoo Choi, George Fazekas, Mark Sandler, Kyunghyun Cho, arXiv:1609.04243, 2016
+* ConvRNN : [*Convolutional Recurrent Neural Networks for Music Classification*](https://scholar.google.co.kr/citations?view_op=view_citation&hl=en&user=ZrqdSu4AAAAJ&sortby=pubdate&citation_for_view=ZrqdSu4AAAAJ:ULOm3_A8WrAC), Keunwoo Choi, George Fazekas, Mark Sandler, Kyunghyun Cho, arXiv:1609.04243, 2016
 
 * Test music items are from [http://www.bensound.com](http://www.bensound.com).
