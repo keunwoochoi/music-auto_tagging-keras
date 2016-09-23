@@ -131,11 +131,12 @@ data/bensound-thejazzpiano.mp3
   * Paper/slide coming soon.
 
 ### Reproduce the experiment
-* [A repo for split setting](https://github.com/keunwoochoi/MSD_split_for_tagging/) for an identical setting. 
+* [A repo for split setting](https://github.com/keunwoochoi/MSD_split_for_tagging/) for an identical setting of experiments in [two papers](#credits). 
 * Audio file: find someone around you who happened to have the preview clips. or you have to crawl the files. I would recommend you to crawl your colleagues...
 
 ### Credits
-* Please cite [this paper](https://scholar.google.co.kr/citations?view_op=view_citation&hl=en&user=ZrqdSu4AAAAJ&citation_for_view=ZrqdSu4AAAAJ:3fE2CSJIrl8C), *Automatic Tagging using Deep Convolutional Neural Networks*, Keunwoo Choi, George Fazekas, Mark Sandler
+* Convnet: [*Automatic Tagging using Deep Convolutional Neural Networks*](https://scholar.google.co.kr/citations?view_op=view_citation&hl=en&user=ZrqdSu4AAAAJ&citation_for_view=ZrqdSu4AAAAJ:3fE2CSJIrl8C), Keunwoo Choi, George Fazekas, Mark Sandler
 17th International Society for Music Information Retrieval Conference, New York, USA, 2016
+* ConvRNN : [Convolutional Recurrent Neural Networks for Music Classification](https://scholar.google.co.kr/citations?view_op=view_citation&hl=en&user=ZrqdSu4AAAAJ&sortby=pubdate&citation_for_view=ZrqdSu4AAAAJ:ULOm3_A8WrAC), Keunwoo Choi, George Fazekas, Mark Sandler, Kyunghyun Cho, arXiv:1609.04243, 2016
 
 * Test music items are from [http://www.bensound.com](http://www.bensound.com).
