@@ -128,7 +128,7 @@ data/bensound-thejazzpiano.mp3
   * [on this paper](https://arxiv.org/abs/1606.00298), or [blog post](https://keunwoochoi.wordpress.com/2016/06/02/paper-is-out-automatic-tagging-using-deep-convolutional-neural-networks/).
   * Also please take a look on the [slide](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/slide-ismir-2016.pdf) at ismir 2016. It includes some results that are not in the paper.
 * More info - RNN:
-  * Paper/slide coming soon.
+  * [paper](https://arxiv.org/abs/1609.04243), or [blog post](https://keunwoochoi.wordpress.com/2016/09/15/paper-is-out-convolutional-recurrent-neural-networks-for-music-classification/)
 
 ### Reproduce the experiment
 * [A repo for split setting](https://github.com/keunwoochoi/MSD_split_for_tagging/) for an identical setting of experiments in [two papers](#credits). 
