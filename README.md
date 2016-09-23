@@ -13,21 +13,23 @@ Music auto-tagger using keras
 
 ![alt text](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/imgs/diagrams.png "structures")
 
-##### ConvNet 
+#### MusicTaggerCNN
  * 5-layer 2D Convolutions
  * num_parameter: 865,950
  * AUC score of 0.8654
-
+ * **WARNING** with keras >1.0.6, this model does not work properly.
+ Please use MusicTaggerCRNN until it is updated!
 (FYI: with 3M parameter, a deeper ConvNet showed 0.8595 AUC.)
 
-##### RecurrentNet
+##### MusicTaggerCRNN
  * 4-layer 2D Convolutions + 2 GRU 
  * num_parameter: 396,786
  * AUC score: 0.8662
 
 ### How was it trained?
  * Using 29.1s music files in [Million Song Dataset](http://labrosa.ee.columbia.edu/millionsong/)
- * Check out more details on [this paper](https://arxiv.org/abs/1606.00298)
+ * split setting: [A repo for split setting](https://github.com/keunwoochoi/MSD_split_for_tagging/) for an identical setting.
+ * See [papers](#credits)
  * The tags are...
 
 ```python
@@ -42,78 +44,39 @@ Music auto-tagger using keras
 ```
 
 ### Which is better?
- * Training: ConvNet is faster than RecurrentNet (wall-clock time)
- * Prediction: ConvNet > RecurrentNet
- * Memory Usage: RecurrentNet have smaller number of trainable parameters. Actually you can even decreases the number of feature maps. The RecurrentNet still works quite well in the case - i.e., the current setting is a little bit rich (or redundant). With ConvNet, you will see the performance decrease if you reduce down the parameters. 
+ * Training: `MusicTaggerCNN` is faster than `MusicTaggerCRNN` (wall-clock time)
+ * Prediction: They are more or less the same. 
+ * Memory Usage: `MusicTaggerCRNN` have smaller number of trainable parameters. Actually you can even decreases the number of feature maps. The `MusicTaggerCRNN` still works quite well in the case - i.e., the current setting is a little bit rich (or redundant). With `MusicTaggerCNN`, you will see the performance decrease if you reduce down the parameters. 
 
-Therefore, if you just wanna use the pre-trained weights, use ConvNet. If you wanna train by yourself, it's up to you. I would use RecurrentNet after downsizing it to, like, 0.2M parameters (then the training time would be similar to ConvNet) in general. To reduce the size, change `nums_feat_maps` under `get_convBNeluMPdrop` in `recurrentnet.py`.
+Therefore, if you just wanna use the pre-trained weights, use `MusicTaggerCNN`. If you wanna train by yourself, it's up to you. I would use `MusicTaggerCRNN` after downsizing it to, like, 0.2M parameters (then the training time would be similar to `MusicTaggerCNN`) in general. To reduce the size, change number of feature maps of convolution layers.
 
 ### Usage
 ```bash
-$ python example.py
+$ python example_tagging.py
+$ python example_feat_extract.py
 ```
-Please take a look on the codes, it's pretty simple.
 
 ### Result
-
-``` bash
-python example.py
-Using Theano backend.
-Running main() with network: cnn and backend: theano
-Loading weights of cnn...
-Predicting...
-Prediction is done. It took 7 seconds.
-Printing top-10 tags for each track...
-data/bensound-cute.mp3
-[('folk', '0.205'), ('jazz', '0.173'), ('pop', '0.153'), ('female vocalists', '0.103'), ('acoustic', '0.066')]
-[('easy listening', '0.064'), ('rock', '0.050'), ('indie', '0.047'), ('Mellow', '0.044'), ('instrumental', '0.038')]
-
-data/bensound-actionable.mp3
-[('rock', '0.589'), ('classic rock', '0.309'), ('blues', '0.108'), ('alternative', '0.099'), ('hard rock', '0.093')]
-[('pop', '0.085'), ('punk', '0.071'), ('indie', '0.066'), ('60s', '0.062'), ('70s', '0.061')]
-
-data/bensound-dubstep.mp3
-[('electronic', '0.262'), ('Hip-Hop', '0.141'), ('rock', '0.111'), ('pop', '0.101'), ('electro', '0.084')]
-[('dance', '0.073'), ('electronica', '0.061'), ('alternative', '0.059'), ('rnb', '0.046'), ('female vocalists', '0.036')]
-
-data/bensound-thejazzpiano.mp3
-[('jazz', '0.767'), ('instrumental', '0.439'), ('guitar', '0.037'), ('rock', '0.027'), ('easy listening', '0.019')]
-[('Progressive rock', '0.018'), ('experimental', '0.018'), ('blues', '0.017'), ('alternative', '0.012'), ('chillout', '0.012')]
-
-Running main() with network: rnn and backend: theano
-Loading weights of rnn...
-Predicting...
-Prediction is done. It took 12 seconds.
-Printing top-10 tags for each track...
-data/bensound-cute.mp3
-[('jazz', '0.238'), ('folk', '0.179'), ('female vocalists', '0.154'), ('pop', '0.098'), ('acoustic', '0.075')]
-[('instrumental', '0.060'), ('indie', '0.058'), ('soul', '0.058'), ('chillout', '0.054'), ('rock', '0.051')]
-
-data/bensound-actionable.mp3
-[('rock', '0.474'), ('classic rock', '0.388'), ('hard rock', '0.243'), ('blues', '0.097'), ('heavy metal', '0.067')]
-[('70s', '0.065'), ('80s', '0.061'), ('Progressive rock', '0.044'), ('alternative', '0.041'), ('60s', '0.034')]
-
-data/bensound-dubstep.mp3
-[('electronic', '0.572'), ('electro', '0.230'), ('electronica', '0.166'), ('dance', '0.138'), ('House', '0.096')]
-[('indie', '0.093'), ('rock', '0.085'), ('experimental', '0.066'), ('alternative', '0.061'), ('pop', '0.044')]
-
-data/bensound-thejazzpiano.mp3
-[('jazz', '0.922'), ('instrumental', '0.039'), ('female vocalists', '0.018'), ('guitar', '0.018'), ('blues', '0.016')]
-[('easy listening', '0.012'), ('rock', '0.007'), ('chillout', '0.006'), ('Mellow', '0.006'), ('soul', '0.006')]
-
-
-```
+(will be updated.)
 
 ### Files
-* [example.py](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/example.py): example
-* [audio_convnet.py](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/audio_convnet.py): build a convnet model
-* [audio_conv_rnn.py](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/audio_conv_rnn.py): build a recurrentnet model
+#### Examples
+* [example_tagging.py](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/example_tagging.py): tagging example
+* [example_feat_extract.py](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/example_feat_extract.py): feature extraction example
+
+#### Models
+* [music_tagger_cnn.py](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/music_tagger_cnn.py)
+* [music_tagger_crnn.py](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/music_tagger_crnn.py)
+
+#### utility
 * [audio_processor.py](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/audio_processor.py): compute mel-spectrogram using librosa
+
+#### weights
 * Under [data/](https://github.com/keunwoochoi/music-auto_tagging-keras/tree/master/data),
-  - four .mp3 files: test files
-  - four .npy files: pre-computed melgram for those who don't want to install librosa
-  - [cnn_weights_tensorflow.h5](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/data/cnn_weights_tensorflow.h5), [cnn_weights_theano.h5](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/data/cnn_weights_theano.h5): pre-trained weights so that you don't need to train by yourself.
-  - [rnn_weights_tensorflow.h5](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/data/rnn_weights_tensorflow.h5), [rnn_weights_theano.h5](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/data/rnn_weights_theano.h5): similar but it's for conv+rnn. 
+  - [music_tagger_cnn_weights_tensorflow](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/data/music_tagger_cnn_weights_tensorflow.h5)
+  - [music_tagger_crnn_weights_tensorflow](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/data/music_tagger_crnn_weights_tensorflow.h5)
+  - [music_tagger_cnn_weights_theano](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/data/music_tagger_cnn_weights_theano.h5)
+  - [music_tagger_crnn_weights_theano](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/data/music_tagger_crnn_weights_theano.h5)
 
 
 ### And...
