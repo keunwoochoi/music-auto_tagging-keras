@@ -130,6 +130,10 @@ data/bensound-thejazzpiano.mp3
 * More info - RNN:
   * Paper/slide coming soon.
 
+### Reproduce the experiment
+* [A repo for split setting](https://github.com/keunwoochoi/MSD_split_for_tagging/) for an identical setting. 
+* Audio file: find someone around you who happened to have the preview clips. or you have to crawl the files. I would recommend you to crawl your colleagues...
+
 ### Credits
 * Please cite [this paper](https://scholar.google.co.kr/citations?view_op=view_citation&hl=en&user=ZrqdSu4AAAAJ&citation_for_view=ZrqdSu4AAAAJ:3fE2CSJIrl8C), *Automatic Tagging using Deep Convolutional Neural Networks*, Keunwoo Choi, George Fazekas, Mark Sandler
 17th International Society for Music Information Retrieval Conference, New York, USA, 2016
