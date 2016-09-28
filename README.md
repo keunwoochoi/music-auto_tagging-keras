@@ -62,12 +62,19 @@ Music auto-tagger using keras
 '60s', 'rnb', 'indie pop', 'sad', 'House', 'happy']
 ```
 
-### Which is better?
+### Which is the better predictor?
  * Training: `MusicTaggerCNN` is faster than `MusicTaggerCRNN` (wall-clock time)
  * Prediction: They are more or less the same. 
  * Memory Usage: `MusicTaggerCRNN` have smaller number of trainable parameters. Actually you can even decreases the number of feature maps. The `MusicTaggerCRNN` still works quite well in the case - i.e., the current setting is a little bit rich (or redundant). With `MusicTaggerCNN`, you will see the performance decrease if you reduce down the parameters. 
 
 Therefore, if you just wanna use the pre-trained weights, use `MusicTaggerCNN`. If you wanna train by yourself, it's up to you. I would use `MusicTaggerCRNN` after downsizing it to, like, 0.2M parameters (then the training time would be similar to `MusicTaggerCNN`) in general. To reduce the size, change number of feature maps of convolution layers.
+
+### Which is the better feature extractor?
+By setting `include_top=False`, you can get 256-dim (`MusicTaggerCNN`) or 32-dim (`MusicTaggerCRNN`) feature representation.
+
+In general, I would recommend to use `MusicTaggerCRNN` and 32-dim feature as for predicting 50 tags, 256 features actually sound bit too large. I haven't looked into 256-dim feature but only 32-dim features. I thought of using PCA to reduce the dimension more, but ended up not applying it because `mean(abs(recovered - original) / original)` are `.12` (dim: 32->16), `.05` (dim: 32->24) - which don't seem good enough.
+
+Probably the 256-dim features are redundant (which then you can reduce them down effectively with PCA), or they just include more information than 32-dim ones (e.g., features in different hierarchical levels). If the dimension size would not matter, it's worth choosing 256-dim ones. 
 
 ### Usage
 ```bash
@@ -94,10 +101,6 @@ data/bensound-thejazzpiano.mp3
 [('jazz', '0.299'), ('instrumental', '0.174'), ('electronic', '0.089'), ('ambient', '0.061'), ('chillout', '0.052')]
 [('rock', '0.044'), ('guitar', '0.044'), ('funk', '0.033'), ('chill', '0.032'), ('Progressive rock', '0.029')]
 ```
-
-### How good is them as music features?
-By setting `include_top=False`, you can get 256-dim (`MusicTaggerCNN`) or 32-dim (`MusicTaggerCRNN`) feature representation.
-In general, I would recommend to use `MusicTaggerCRNN` and 32-dim feature as for predicting 50 tags, 256 features actually sound bit too large. I haven't looked into 256-dim feature but only 32-dim features. I thought of using PCA to reduce the dimension more, but ended up not applying it because `mean(abs(recovered - original) / original)` are `.12` (dim: 32->16), `.05` (dim: 32->24) - which don't seem good enough.
 
 ### And...
 
