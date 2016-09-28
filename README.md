@@ -40,7 +40,7 @@ Music auto-tagger using keras
  Please use MusicTaggerCRNN until it is updated!
 (FYI: with 3M parameter, a deeper ConvNet showed 0.8595 AUC.)
 
-##### MusicTaggerCRNN
+#### MusicTaggerCRNN
  * 4-layer 2D Convolutions + 2 GRU 
  * num_parameter: 396,786
  * AUC score: 0.8662
@@ -94,6 +94,10 @@ data/bensound-thejazzpiano.mp3
 [('jazz', '0.299'), ('instrumental', '0.174'), ('electronic', '0.089'), ('ambient', '0.061'), ('chillout', '0.052')]
 [('rock', '0.044'), ('guitar', '0.044'), ('funk', '0.033'), ('chill', '0.032'), ('Progressive rock', '0.029')]
 ```
+
+### How good is them as music features?
+By setting `include_top=False`, you can get 256-dim (`MusicTaggerCNN`) or 32-dim (`MusicTaggerCRNN`) feature representation.
+In general, I would recommend to use `MusicTaggerCRNN` and 32-dim feature as for predicting 50 tags, 256 features actually sound bit too large. I haven't looked into 256-dim feature but only 32-dim features. I thought of using PCA to reduce the dimension more, but ended up not applying it because `mean(abs(recovered - original) / original)` are `.12` (dim: 32->16), `.05` (dim: 32->24) - which don't seem good enough.
 
 ### And...
 
