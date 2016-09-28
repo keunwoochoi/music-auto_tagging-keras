@@ -9,6 +9,25 @@ Music auto-tagger using keras
 "image_dim_ordering": "th",
 ```
 
+### Files
+#### Files-Examples
+* [example_tagging.py](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/example_tagging.py): tagging example
+* [example_feat_extract.py](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/example_feat_extract.py): feature extraction example
+
+#### Files-Models
+* [music_tagger_cnn.py](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/music_tagger_cnn.py)
+* [music_tagger_crnn.py](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/music_tagger_crnn.py)
+
+#### Files-utility
+* [audio_processor.py](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/audio_processor.py): compute mel-spectrogram using librosa
+
+#### Files-weights
+* Under [data/](https://github.com/keunwoochoi/music-auto_tagging-keras/tree/master/data),
+  - [music_tagger_cnn_weights_tensorflow](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/data/music_tagger_cnn_weights_tensorflow.h5)
+  - [music_tagger_crnn_weights_tensorflow](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/data/music_tagger_crnn_weights_tensorflow.h5)
+  - [music_tagger_cnn_weights_theano](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/data/music_tagger_cnn_weights_theano.h5)
+  - [music_tagger_crnn_weights_theano](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/data/music_tagger_crnn_weights_theano.h5)
+
 ### Structures
 
 ![alt text](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/imgs/diagrams.png "structures")
@@ -57,27 +76,24 @@ $ python example_feat_extract.py
 ```
 
 ### Result
-(will be updated.)
+*theano, MusicTaggerCRNN*
+```python
+data/bensound-cute.mp3
+[('jazz', '0.444'), ('instrumental', '0.151'), ('folk', '0.103'), ('Hip-Hop', '0.103'), ('ambient', '0.077')]
+[('guitar', '0.068'), ('rock', '0.058'), ('acoustic', '0.054'), ('experimental', '0.051'), ('electronic', '0.042')]
 
-### Files
-#### Examples
-* [example_tagging.py](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/example_tagging.py): tagging example
-* [example_feat_extract.py](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/example_feat_extract.py): feature extraction example
+data/bensound-actionable.mp3
+[('jazz', '0.416'), ('instrumental', '0.181'), ('Hip-Hop', '0.085'), ('folk', '0.085'), ('rock', '0.081')]
+[('ambient', '0.068'), ('guitar', '0.062'), ('Progressive rock', '0.048'), ('experimental', '0.046'), ('acoustic', '0.046')]
 
-#### Models
-* [music_tagger_cnn.py](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/music_tagger_cnn.py)
-* [music_tagger_crnn.py](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/music_tagger_crnn.py)
+data/bensound-dubstep.mp3
+[('Hip-Hop', '0.245'), ('rock', '0.183'), ('alternative', '0.081'), ('electronic', '0.076'), ('alternative rock', '0.053')]
+[('metal', '0.051'), ('indie', '0.028'), ('instrumental', '0.027'), ('electronica', '0.024'), ('hard rock', '0.023')]
 
-#### utility
-* [audio_processor.py](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/audio_processor.py): compute mel-spectrogram using librosa
-
-#### weights
-* Under [data/](https://github.com/keunwoochoi/music-auto_tagging-keras/tree/master/data),
-  - [music_tagger_cnn_weights_tensorflow](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/data/music_tagger_cnn_weights_tensorflow.h5)
-  - [music_tagger_crnn_weights_tensorflow](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/data/music_tagger_crnn_weights_tensorflow.h5)
-  - [music_tagger_cnn_weights_theano](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/data/music_tagger_cnn_weights_theano.h5)
-  - [music_tagger_crnn_weights_theano](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/data/music_tagger_crnn_weights_theano.h5)
-
+data/bensound-thejazzpiano.mp3
+[('jazz', '0.299'), ('instrumental', '0.174'), ('electronic', '0.089'), ('ambient', '0.061'), ('chillout', '0.052')]
+[('rock', '0.044'), ('guitar', '0.044'), ('funk', '0.033'), ('chill', '0.032'), ('Progressive rock', '0.029')]
+```
 
 ### And...
 
