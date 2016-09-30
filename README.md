@@ -1,6 +1,10 @@
 # Music Auto-Tagger
 Music auto-tagger using keras
 
+# WARNING
+* use keras == 1.0.6 for `MusicTaggerCNN`. (will fix soon)
+* use keras > 1.0.6 for `MusicTaggerCRNN`. 
+
 ### The prerequisite
 * You need [`keras`](http://keras.io) to run `example.py`.
   * To use your own audio file, you need [`librosa`](http://librosa.github.io/librosa/).
