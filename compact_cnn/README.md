@@ -8,6 +8,7 @@
 
 ## Is it good?
 ![alt text](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/compact_cnn/benchmark/fig_feature_performances_all_knn.png "results")
+
 More details coming soon.
 
 
