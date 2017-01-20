@@ -11,7 +11,6 @@
 
 More details coming soon.
 
-
 ## Before you run it
 * set `image_dim_ordering()` == `th`.
 * It works on both tensorflow/theano backend. 
