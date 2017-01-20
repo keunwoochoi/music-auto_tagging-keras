@@ -20,23 +20,9 @@ Music auto-tagger using keras
 
 ### Files (1)
 For `MusicTaggerCNN` and `MusicTaggerCRNN`.
-#### Files-Examples
-* [example_tagging.py](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/example_tagging.py): tagging example
-* [example_feat_extract.py](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/example_feat_extract.py): feature extraction example
 
-#### Files-Models
-* [music_tagger_cnn.py](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/music_tagger_cnn.py)
-* [music_tagger_crnn.py](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/music_tagger_crnn.py)
-
-#### Files-utility
-* [audio_processor.py](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/audio_processor.py): compute mel-spectrogram using librosa
-
-#### Files-weights
-* Under [data/](https://github.com/keunwoochoi/music-auto_tagging-keras/tree/master/data),
-  - [music_tagger_cnn_weights_tensorflow](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/data/music_tagger_cnn_weights_tensorflow.h5)
-  - [music_tagger_crnn_weights_tensorflow](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/data/music_tagger_crnn_weights_tensorflow.h5)
-  - [music_tagger_cnn_weights_theano](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/data/music_tagger_cnn_weights_theano.h5)
-  - [music_tagger_crnn_weights_theano](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/data/music_tagger_crnn_weights_theano.h5)
+* [example_tagging.py](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/example_tagging.py): tagging example, [example_feat_extract.py](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/example_feat_extract.py): feature extraction example
+* [music_tagger_cnn.py](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/music_tagger_cnn.py), [music_tagger_crnn.py](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/music_tagger_crnn.py): Models
 
 ### Files (2)
 For [compact_cnn](https://github.com/keunwoochoi/music-auto_tagging-keras/tree/master/compact_cnn)
@@ -46,6 +32,7 @@ For [compact_cnn](https://github.com/keunwoochoi/music-auto_tagging-keras/tree/m
 
 ### Structures
 
+Left: compact_cnn CNN, music_tager_cnn. Right: music_tagger_crnn
 ![alt text](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/imgs/diagrams.png "structures")
 
 #### MusicTaggerCNN
