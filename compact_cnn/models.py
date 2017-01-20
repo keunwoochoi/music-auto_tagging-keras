@@ -17,6 +17,8 @@ from keras.layers.recurrent import LSTM, GRU
 import time
 from kapre.time_frequency import Spectrogram, Melspectrogram
 from kapre.utils import Normalization2D
+import pdb
+
 
 SR = 12000
 
@@ -74,6 +76,7 @@ def raw_vgg(args, input_length=12000*29, tf='melgram', normalize=None,
                                   poolings, model.output_shape[1:]))
     model.add(Flatten())
     if last_layer:
+        pdb.set_trace()
         model.add(Dense(50, activation='sigmoid'))
     return model
 
