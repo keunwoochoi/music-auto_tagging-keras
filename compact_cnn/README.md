@@ -6,6 +6,11 @@
 * A compact cnn - 5 layers, batch normalizationm, ELU, 32 feature maps for each conv layers.
 * AUC is about 0.849 for the tagging task.
 
+## Is it good?
+![alt text](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/compact_cnn/benchmark/fig_feature_performances_all_knn.png "results")
+More details coming soon.
+
+
 ## Before you run it
 * set `image_dim_ordering()` == `th`.
 * It works on both tensorflow/theano backend. 
