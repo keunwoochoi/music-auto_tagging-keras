@@ -7,7 +7,7 @@
 * AUC is about 0.849 for the tagging task.
 
 ## Is it good?
-![alt text](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/compact_cnn/benchmark/fig_feature_performances_all_knn.png "results")
+![alt text](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/compact_cnn/benchmark/result_svm.png "results")
 
 More details coming soon.
 

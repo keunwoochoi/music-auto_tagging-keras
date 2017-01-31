@@ -22,11 +22,7 @@ def librosa_exists():
 
 
 def main(net):
-    ''' *WARNIING*
-    This model use Batch Normalization, so the prediction
-    is affected by batch. Use multiple, different data 
-    samples together (at least 4) for reliable prediction.'''
-
+    
     print('Running main() with network: %s and backend: %s' % (net, K._BACKEND))
     # setting
     audio_paths = ['data/bensound-cute.mp3',

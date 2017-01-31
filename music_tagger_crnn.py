@@ -84,7 +84,7 @@ def MusicTaggerCRNN(weights='msd', input_tensor=None,
 
     # Input block
     x = ZeroPadding2D(padding=(0, 37))(melgram_input)
-    x = BatchNormalization(axis=time_axis, name='bn_0_freq')(x)
+    x = BatchNormalization(axis=freq_axis, name='bn_0_freq')(x)
 
     # Conv block 1
     x = Convolution2D(64, 3, 3, border_mode='same', name='conv1')(x)
