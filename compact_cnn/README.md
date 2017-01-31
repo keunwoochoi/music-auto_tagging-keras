@@ -9,6 +9,8 @@
 ## Is it good?
 ![alt text](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/compact_cnn/benchmark/result_svm.png "results")
 
+(pre-trained features + SVM)
+
 More details coming soon.
 
 ## Before you run it
