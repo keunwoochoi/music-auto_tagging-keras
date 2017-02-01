@@ -20,3 +20,7 @@ More details coming soon.
 
 ## After you run it
 * wait and have a cuppa if not a pint.
+
+## Note
+Tested on Keras 1.2.1
+
