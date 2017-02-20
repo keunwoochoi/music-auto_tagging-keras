@@ -16,10 +16,18 @@ More details coming soon.
 ## Before you run it
 * set `image_dim_ordering()` == `th`.
 * It works on both tensorflow/theano backend. 
-* install kapre by `$ pip install kapre`
+* install [kapre](https://github.com/keunwoochoi/kapre) by 
+```
+$ git clone https://github.com/keunwoochoi/kapre.git
+$ cd kapre
+$ python setup.py install
+```
 
-## After you run it
-* wait and have a cuppa if not a pint.
+
+## Running it
+* See `main.py` for an example.
+* It is not the most efficient implementation, but the easiest for me :) still it's not slow even for cpu-based inference.
+
 
 ## Note
 Tested on Keras 1.2.1
