@@ -7,9 +7,12 @@
 * AUC is about 0.849 for the tagging task.
 
 ## Is it good?
-![alt text](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/compact_cnn/benchmark/result_svm.png "results")
+![alt text](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/compact_cnn/benchmark/results_all.png "results")
 
-(pre-trained features + SVM)
+* Best of pre-trained: cherry-picked from pre-trained
+* Concatenating 12345 + MFCCs : concat(all pre-trained features, MFCCs)
+* MFCCs: mean and vars of {MFCC, dMFCC, ddMFCC}
+* SoTA: reported state-of-the-art scores
 
 More details coming soon.
 
