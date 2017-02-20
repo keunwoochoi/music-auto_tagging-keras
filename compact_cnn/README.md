@@ -4,9 +4,12 @@
 
 ## What is this?
 * A compact cnn - 5 layers, batch normalizationm, ELU, 32 feature maps for each conv layers.
-* AUC is about 0.849 for the tagging task.
 
 ## Is it good?
+### For source-task (tagging)
+* AUC is about 0.849 for the tagging task.
+
+### For target-tasks
 ![alt text](https://github.com/keunwoochoi/music-auto_tagging-keras/blob/master/compact_cnn/benchmark/results_all.png "results")
 
 * Best of pre-trained: cherry-picked from pre-trained
@@ -35,3 +38,6 @@ $ python setup.py install
 ## Note
 Tested on Keras 1.2.1
 
+## Citation
+
+Coming soon.
