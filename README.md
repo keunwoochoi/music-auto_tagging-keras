@@ -2,7 +2,13 @@
 Music auto-tagger using keras
 
 
-# WARNING
+
+# WARNING!
+
+* TAKE A LOON ON [compact_cnn](https://github.com/keunwoochoi/music-auto_tagging-keras/tree/master/compact_cnn) folder. You will probably prefer it.
+
+and...
+
 * use keras == 1.0.6 for `MusicTaggerCNN`. (will fix soon)
 * use keras > 1.0.6 for `MusicTaggerCRNN`. 
 * use keras > 1.1 for `compact_cnn`.
