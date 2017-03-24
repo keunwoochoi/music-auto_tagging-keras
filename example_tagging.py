@@ -63,9 +63,9 @@ def main(net):
         model = MusicTaggerCNN(weights='msd')
     elif net == 'crnn':
         model = MusicTaggerCRNN(weights='msd')
-    
+    model.summary()
     # predict the tags like this
-    print('Predicting...')
+    print('Predicting... with melgrams: ', melgrams.shape)
     start = time.time()
     pred_tags = model.predict(melgrams)
     # print like this...

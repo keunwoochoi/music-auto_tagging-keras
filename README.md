@@ -2,16 +2,20 @@
 Music auto-tagger using keras
 
 
-
 # WARNING!
 
-* TAKE A LOON ON [compact_cnn](https://github.com/keunwoochoi/music-auto_tagging-keras/tree/master/compact_cnn) folder. You will probably prefer it.
+* IF YOU WANT A TAGGER, look at
+  - [compact_cnn](https://github.com/keunwoochoi/music-auto_tagging-keras/tree/master/compact_cnn) 
+* IF YOU WANT A FEATURE EXTRACTOR, lookg at either
+  - [compact_cnn](https://github.com/keunwoochoi/music-auto_tagging-keras/tree/master/compact_cnn) 
+  - [transfer learning music](https://github.com/keunwoochoi/transfer_learning_music)
 
-and...
+..because `MusicTaggerCNN` and `MusicTaggerCRNN` is based on an old (and a bit incorrect) implementation of Batch Normalization of old Keras (thanks god it worked anyway), it's quite tricky to fix. 
 
+## Keras Versions
 * use keras == 1.0.6 for `MusicTaggerCNN`. (will fix soon)
-* use keras > 1.0.6 for `MusicTaggerCRNN`. 
-* use keras > 1.1 for `compact_cnn`.
+* use 1.2 >= keras > 1.0.6 for `MusicTaggerCRNN`. 
+* use 1.2 >= keras >= 1.1 for `compact_cnn`.
 
 
 ### The prerequisite -- READ IT!
