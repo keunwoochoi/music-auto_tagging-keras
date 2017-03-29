@@ -22,10 +22,11 @@ More details coming soon.
 ## Before you run it
 * set `image_dim_ordering()` == `th`.
 * It works on both tensorflow/theano backend. 
-* install [kapre](https://github.com/keunwoochoi/kapre) by 
+* install [kapre](https://github.com/keunwoochoi/kapre) **OLD VERSION** by 
 ```
 $ git clone https://github.com/keunwoochoi/kapre.git
 $ cd kapre
+$ git checkout a3bde3e
 $ python setup.py install
 ```
 
