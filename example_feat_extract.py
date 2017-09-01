@@ -53,7 +53,7 @@ def main(net):
     # predict the tags like this
     print('Predicting features...')
     start = time.time()
-    features = model.predict(melgrams)
+    features = model.prediun(melgrams)
     print features[:, :10]
     return
 
