@@ -2,9 +2,9 @@
 Music auto-tagger using keras
 
 
-# WARNING!
+# WARNING! Alternatives available
 
-* IF YOU WANT A TAGGER, look at
+* IF YOU WANT A TAGGER, please also look at
   - [compact_cnn](https://github.com/keunwoochoi/music-auto_tagging-keras/tree/master/compact_cnn) 
 * IF YOU WANT A FEATURE EXTRACTOR, lookg at either
   - [compact_cnn](https://github.com/keunwoochoi/music-auto_tagging-keras/tree/master/compact_cnn) 
@@ -13,7 +13,7 @@ Music auto-tagger using keras
 ..because `MusicTaggerCNN` and `MusicTaggerCRNN` is based on an old (and a bit incorrect) implementation of Batch Normalization of old Keras (thanks god it worked anyway), it's quite tricky to fix. 
 
 ## Keras Versions
-* use keras == 1.0.6 for `MusicTaggerCNN`. (will fix soon)
+* use keras == 1.0.6 for `MusicTaggerCNN`.
 * use 1.2 >= keras > 1.0.6 for `MusicTaggerCRNN`. 
 * use 1.2 >= keras >= 1.1 for `compact_cnn`.
 
@@ -26,7 +26,7 @@ Music auto-tagger using keras
 ```json
 "image_dim_ordering": "th",
 ```
-* To use `compact_cnn`,`$ pip install kapre`. (More on [Kapre](https://github.com/keunwoochoi/kapre))
+* To use `compact_cnn`, You need to install [Kapre](https://github.com/keunwoochoi/kapre).
 
 ### Files (1)
 For `MusicTaggerCNN` and `MusicTaggerCRNN`.
