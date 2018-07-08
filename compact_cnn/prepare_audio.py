@@ -9,7 +9,7 @@ if src.shape[0] < 12000 * 29:
     print('Concat zeros so that the shape becomes (348000, ))
 if src.shape[0] > 12000 * 29:
     print('If you set the duration as 29 in the loading function, the shape is probably (348001, ).')
-    print('In this case, trim it to make it (348000, ). )'
+    print('In this case, trim it to make it (348000, ).')
     src = src[:348000]
 
 # It's pretty done, now the src.shape == (348000, )
